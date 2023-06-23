@@ -19,6 +19,7 @@ async function createTables() {
                 password VARCHAR(255) NOT NULL,
                 first_name VARCHAR(255) NOT NULL,
                 last_name VARCHAR(255) NOT NULL,
+                email VARCHAR(255) NOT NULL,
                 address VARCHAR(255) 
             );
             CREATE TABLE treats(
@@ -28,8 +29,8 @@ async function createTables() {
             );
             CREATE TABLE merchandise(
                 id SERIAL PRIMARY KEY,
-                type VARCHAR(255) UNIQUE NOT NULL,
-                size VARCHAR(50) UNIQUE NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                size VARCHAR(50) NOT NULL,
                 color VARCHAR(50),
                 price MONEY NOT NULL
             );
@@ -42,6 +43,39 @@ async function createTables() {
         `);
     console.log("it work");
   } catch (error) {}
+
+  async function createInitialUsers() {
+    console.log("Starting to create users...");
+    try {
+      const usersToCreate = [
+        {
+          username: "albert",
+          password: "bertie99",
+          firstName: "albert",
+          lastName: "bert",
+        },
+        {
+          username: "sandra",
+          password: "sandra123",
+          firstName: "sandra",
+          lastName: "daisy",
+        },
+        {
+          username: "glamgal",
+          password: "glamgal123",
+          firstName: "glamorous",
+          lastName: "gal",
+        },
+      ];
+      const users = await Promise.all(usersToCreate.map(createUser));
+      console.log("Users created:");
+      console.log(users);
+      console.log("Finished creating users!");
+    } catch (error) {
+      console.error("Error creating users!");
+      throw error;
+    }
+  }
 }
 
 async function rebuildDB() {
@@ -49,6 +83,7 @@ async function rebuildDB() {
     client.connect();
     await dropTables();
     await createTables();
+    await createInitialUsers();
   } catch (error) {}
 }
 
