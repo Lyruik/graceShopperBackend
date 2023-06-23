@@ -40,7 +40,7 @@ async function createTables() {
                 total MONEY NOT NULL
             );
         `);
-    console.log("it work");
+    console.log("This works!");
   } catch (error) {}
 }
 
