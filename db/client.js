@@ -1,12 +1,20 @@
-const { Pool } = require("pg");
+const { Client } = require("pg");
 
-const connectionString =
-  process.env.DATABASE_URL || "http://localhost:5432/fitness-dev";
+// change the DB_NAME string to whatever your group decides on
+const DB_NAME = "bakery";
 
-const client = new Pool({
+const DB_URL =
+  process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
+
+let client;
+
+// github actions client config
+client = new Client({
+  host: "localhost",
+  port: 5432,
   user: "postgres",
   password: "postgres",
-  database: "fitness-dev",
+  database: "bakery",
 });
 
 module.exports = client;

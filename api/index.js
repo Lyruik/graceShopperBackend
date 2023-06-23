@@ -1,19 +1,19 @@
 const express = require("express");
-const apiRouter = express.router();
+const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
-const usersRouter = requires("./users");
+const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
 
-const treatsRouter = requires("./treats");
-apiRouter.use("/users", treatsRouter);
+const treatsRouter = require("./treats");
+apiRouter.use("/treats", treatsRouter);
 
-const cartRouter = requires("./cart");
-apiRouter.use("/users", cartRouter);
+const cartRouter = require("./cart");
+apiRouter.use("/cart", cartRouter);
 
-const merchRouter = requires("./merch");
-apiRouter.use("/users", merchRouter);
+const merchRouter = require("./merch");
+apiRouter.use("/merch", merchRouter);
 
 apiRouter.use((req, res, next) => {
   res.status(404).send({ message: "Sorry can't find that!" });
