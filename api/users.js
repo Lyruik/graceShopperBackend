@@ -1,31 +1,13 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-<<<<<<< HEAD
-const { createUser } = require("../db/users");
-=======
 const { createUser, getUser, deleteUser, updateUser } = require("../db/users");
 const { requireAdmin } = require("./utils");
->>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 require("dotenv").config();
 const usersRouter = express.Router();
 
 usersRouter.post("/register", async (req, res, next) => {
-<<<<<<< HEAD
-  const { username, password, firstName, lastName } = req.body;
-  try {
-    //const _user = await getUserByUsername(username);
-
-    // if (_user) {
-    //   res.send({
-    //     error: "Registration failed",
-    //     name: "UserExistsError",
-    //     message: `User ${username} is already taken.`,
-    //   });
-    // } else
-=======
   const { username, password } = req.body;
   try {
->>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
     if (password.length < 8) {
       res.send({
         error: "Password error",
@@ -33,10 +15,6 @@ usersRouter.post("/register", async (req, res, next) => {
         name: "shortPasswordError",
       });
     } else {
-<<<<<<< HEAD
-      console.log(username, password);
-=======
->>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
       const response = await createUser(req.body);
       const token = jwt.sign(
         {
@@ -61,8 +39,6 @@ usersRouter.post("/register", async (req, res, next) => {
     next(error);
   }
 });
-<<<<<<< HEAD
-=======
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
   try {
@@ -111,6 +87,5 @@ usersRouter.patch("/:userId", async (req, res, next) => {
     res.send(response);
   } catch (error) {}
 });
->>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 
 module.exports = usersRouter;
