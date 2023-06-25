@@ -3,6 +3,8 @@ const apiRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
+<<<<<<< HEAD
+=======
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -30,6 +32,7 @@ apiRouter.use(async (req, res, next) => {
   }
 });
 
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 const usersRouter = require("./users");
 apiRouter.use("/users", usersRouter);
 
@@ -40,7 +43,10 @@ const cartRouter = require("./cart");
 apiRouter.use("/cart", cartRouter);
 
 const merchRouter = require("./merch");
+<<<<<<< HEAD
+=======
 const { getUserById } = require("../db/users");
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 apiRouter.use("/merch", merchRouter);
 
 apiRouter.use((req, res, next) => {

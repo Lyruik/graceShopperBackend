@@ -1,5 +1,8 @@
 const client = require("./client");
+<<<<<<< HEAD
+=======
 const { createUser } = require("./users");
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 
 async function dropTables() {
   console.log("Dropping tables");
@@ -8,26 +11,36 @@ async function dropTables() {
     DROP TABLE IF EXISTS merchandise;
     DROP TABLE IF EXISTS treats;
     DROP TABLE IF EXISTS users;
+<<<<<<< HEAD
+=======
     DROP TABLE IF EXISTS roles;
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
   `);
 }
 
 async function createTables() {
   try {
     await client.query(`
+<<<<<<< HEAD
+=======
             CREATE TABLE roles(
               id SERIAL PRIMARY KEY,
               title VARCHAR(100) NOT NULL
             );
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
             CREATE TABLE users(
                 id SERIAL PRIMARY KEY, 
                 username VARCHAR(255) UNIQUE NOT NULL,
                 password VARCHAR(255) NOT NULL,
                 first_name VARCHAR(255) NOT NULL,
                 last_name VARCHAR(255) NOT NULL,
+<<<<<<< HEAD
+                address VARCHAR(255) 
+=======
                 email VARCHAR(255) UNIQUE NOT NULL,
                 address VARCHAR(255),
                 role_id INTEGER REFERENCES roles(id) NOT NULL DEFAULT 2
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
             );
             CREATE TABLE treats(
                 id SERIAL PRIMARY KEY,
@@ -36,8 +49,13 @@ async function createTables() {
             );
             CREATE TABLE merchandise(
                 id SERIAL PRIMARY KEY,
+<<<<<<< HEAD
+                type VARCHAR(255) UNIQUE NOT NULL,
+                size VARCHAR(50) UNIQUE NOT NULL,
+=======
                 type VARCHAR(255) NOT NULL,
                 size VARCHAR(50) NOT NULL,
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
                 color VARCHAR(50),
                 price MONEY NOT NULL
             );
@@ -47,6 +65,13 @@ async function createTables() {
                 items TEXT,
                 total MONEY NOT NULL
             );
+<<<<<<< HEAD
+        `);
+    console.log("it work");
+  } catch (error) {}
+}
+
+=======
             
         `);
     console.log("Successfully created tables");
@@ -107,13 +132,17 @@ async function createInitialUsers() {
   }
 }
 
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 async function rebuildDB() {
   try {
     client.connect();
     await dropTables();
     await createTables();
+<<<<<<< HEAD
+=======
     await createRoles();
     await createInitialUsers();
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
   } catch (error) {}
 }
 

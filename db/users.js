@@ -4,6 +4,17 @@ const bcrypt = require("bcrypt");
 // database functions
 
 // user functions
+<<<<<<< HEAD
+async function createUser({ username, password, firstName, lastName }) {
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    const createduser = await client.query(
+      `
+      INSERT INTO users (username, password, first_name, last_name) VALUES ($1, $2, $3, $4)
+      RETURNING id, username;
+    `,
+      [username, hash, firstName, lastName]
+=======
 async function createUser({
   username,
   password,
@@ -30,11 +41,16 @@ async function createUser({
       RETURNING id, username;
     `,
       [username, hash, firstName, lastName, email, roleId]
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
     );
     return createduser.rows[0];
   } catch (error) {}
 }
 
+<<<<<<< HEAD
+module.exports = {
+  createUser,
+=======
 async function getUser({ username, password }) {
   try {
     const fromDB = await client.query(
@@ -110,4 +126,5 @@ module.exports = {
   deleteUser,
   getUserById,
   updateUser,
+>>>>>>> 2c3f714fb8105f08e6bcb8f3275eaf2b1307e41e
 };
