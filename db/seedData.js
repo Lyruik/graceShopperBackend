@@ -107,6 +107,218 @@ async function createInitialUsers() {
   }
 }
 
+async function createInitialMerch() {
+  console.log("Starting to create merch...");
+  try {
+    const merchToCreate = [
+      {
+        id: 1,
+        type: "shirt",
+        size: "medium",
+        color: "light gray",
+        price: 20,
+      },
+      {
+        id: 2,
+        type: "shirt",
+        size: "large",
+        color: "light gray",
+        price: 20,
+      },
+      {
+        id: 3,
+        type: "shirt",
+        size: "xl",
+        color: "light gray",
+        price: 20,
+      },
+      {
+        id: 4,
+        type: "shirt",
+        size: "2xl",
+        color: "light gray",
+        price: 20,
+      },
+      {
+        id: 5,
+        type: "shirt",
+        size: "medium",
+        color: "navy blue",
+        price: 20,
+      },
+      {
+        id: 6,
+        type: "shirt",
+        size: "large",
+        color: "navy blue",
+        price: 20,
+      },
+      {
+        id: 7,
+        type: "shirt",
+        size: "xl",
+        color: "navy blue",
+        price: 20,
+      },
+      {
+        id: 8,
+        type: "shirt",
+        size: "2xl",
+        color: "navy blue",
+        price: 20,
+      },
+      {
+        id: 9,
+        type: "shirt",
+        size: "medium",
+        color: "red",
+        price: 20,
+      },
+      {
+        id: 10,
+        type: "shirt",
+        size: "large",
+        color: "red",
+        price: 20,
+      },
+      {
+        id: 11,
+        type: "shirt",
+        size: "xl",
+        color: "red",
+        price: 20,
+      },
+      {
+        id: 12,
+        type: "shirt",
+        size: "2xl",
+        color: "red",
+        price: 20,
+      },
+      {
+        id: 13,
+        type: "shirt",
+        size: "medium",
+        color: "black",
+        price: 20,
+      },
+      {
+        id: 14,
+        type: "shirt",
+        size: "large",
+        color: "black",
+        price: 20,
+      },
+      {
+        id: 15,
+        type: "shirt",
+        size: "xl",
+        color: "black",
+        price: 20,
+      },
+      {
+        id: 16,
+        type: "shirt",
+        size: "2xl",
+        color: "black",
+        price: 20,
+      },
+      {
+        id: 17,
+        type: "baseball cap",
+        size: "large",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 18,
+        type: "baseball cap",
+        size: "xl",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 19,
+        type: "baseball cap",
+        size: "large",
+        color: "goldenrod",
+        price: 25,
+      },
+      {
+        id: 20,
+        type: "baseball cap",
+        size: "xl",
+        color: "goldenrod",
+        price: 25,
+      },
+      {
+        id: 21,
+        type: "bucket hat",
+        size: "large",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 22,
+        type: "bucket hat",
+        size: "xl",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 23,
+        type: "bucket hat",
+        size: "large",
+        color: "goldenrod",
+        price: 25,
+      },
+      {
+        id: 24,
+        type: "bucket hat",
+        size: "xl",
+        color: "goldenrod",
+        price: 25,
+      },
+      {
+        id: 25,
+        type: "beanie",
+        size: "large",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 26,
+        type: "beanie",
+        size: "xl",
+        color: "english oak",
+        price: 25,
+      },
+      {
+        id: 27,
+        type: "beanie",
+        size: "large",
+        color: "goldenrod",
+        price: 25,
+      },
+      {
+        id: 28,
+        type: "beanie",
+        size: "xl",
+        color: "goldenrod",
+        price: 25,
+      },
+    ];
+
+    const merch = await Promise.all(merchToCreate.map(createMerch));
+    console.log("Merch created:");
+    console.log(merch);
+    console.log("Finished creating merch!");
+  } catch (error) {
+    console.error("Error creating merch!");
+    throw error;
+  }
+}
+
 async function rebuildDB() {
   try {
     client.connect();
@@ -114,6 +326,7 @@ async function rebuildDB() {
     await createTables();
     await createRoles();
     await createInitialUsers();
+    await createInitialMerch();
   } catch (error) {}
 }
 
