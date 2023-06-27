@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const { createUser, getUser, deleteUser, updateUser } = require("../db/users");
-const { requireAdmin } = require("./utils");
+const { requireAdmin, requireIdentity } = require("./utils");
 require("dotenv").config();
 const usersRouter = express.Router();
 
@@ -59,12 +59,17 @@ usersRouter.post("/login", async (req, res, next) => {
     }
   } catch (error) {}
 });
-usersRouter.delete("/:userId", requireAdmin, async (req, res, next) => {
-  try {
-    const response = await deleteUser(req.params.userId);
-    res.send(response);
-  } catch (error) {}
-});
+usersRouter.delete(
+  "/:userId",
+  requireIdentity,
+  requireAdmin,
+  async (req, res, next) => {
+    try {
+      const response = await deleteUser(req.params.userId);
+      res.send(response);
+    } catch (error) {}
+  }
+);
 
 usersRouter.patch("/:userId", async (req, res, next) => {
   const { username, id, role_id } = req.user;
