@@ -1,6 +1,7 @@
 const client = require("./client");
 const { createTreat } = require("./treats");
 const { createUser } = require("./users");
+const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
 
 const randomName = faker.person.fullName();
