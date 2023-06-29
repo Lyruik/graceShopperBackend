@@ -41,7 +41,7 @@ async function createTables() {
                 stock SMALLINT,
                 price MONEY NOT NULL
             );
-            CREATE TABLE merchandise(
+            CREATE TABLE merch(
                 id SERIAL PRIMARY KEY,
                 type VARCHAR(255) NOT NULL,
                 size VARCHAR(50) NOT NULL,
