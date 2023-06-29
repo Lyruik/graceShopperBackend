@@ -4,13 +4,12 @@ async function createMerch({ id, type, size, color, price }) {
   try {
     const response = await client.query(
       `
-        INSERT INTO treats (id, "type", "size", "color", price)
+        INSERT INTO merch (id, "type", "size", "color", price)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id, type, size, color, price;
       `,
       [id, type, size, color, price]
     );
-
     return response.rows[0];
   } catch (error) {}
 }
