@@ -9,7 +9,7 @@ function requireAdmin(req, res, next) {
   next();
 }
 function requireIdentity(req, res, next) {
-  if (!req.user.id) {
+  if (!req.headers.authorization) {
     res.send({
       message: "You must be logged in to perform this action",
       error: "Any<String>",

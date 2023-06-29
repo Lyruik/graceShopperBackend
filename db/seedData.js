@@ -1,5 +1,11 @@
 const client = require("./client");
+const { createTreat } = require("./treats");
 const { createUser } = require("./users");
+const { createMerch } = require("./merch");
+const { faker } = require("@faker-js/faker");
+
+const randomName = faker.person.fullName();
+const randomEmail = faker.internet.email();
 
 async function dropTables() {
   console.log("Dropping tables");
@@ -32,6 +38,7 @@ async function createTables() {
             CREATE TABLE treats(
                 id SERIAL PRIMARY KEY,
                 type VARCHAR(255) UNIQUE NOT NULL,
+                stock SMALLINT,
                 price MONEY NOT NULL
             );
             CREATE TABLE merchandise(
@@ -96,13 +103,63 @@ async function createInitialUsers() {
         roleId: 1,
       },
     ];
-
+    for (let i = 0; i < 99; i++) {
+      usersToCreate.push({
+        username: faker.internet.userName(),
+        password: faker.internet.password({ length: 20 }),
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
+        email: faker.internet.email(),
+      });
+    }
     const users = await Promise.all(usersToCreate.map(createUser));
     console.log("Users created:");
     console.log(users);
     console.log("Finished creating users!");
   } catch (error) {
     console.error("Error creating users!");
+    throw error;
+  }
+}
+
+async function createInitialTreats() {
+  console.log("Starting to create treats");
+  try {
+    const treatsToPush = [
+      {
+        type: "chocolate chip cookie",
+        price: 1,
+        stock: faker.number.int({ max: 100 }),
+      },
+      {
+        type: "fudge brownie",
+        price: 2.5,
+        stock: faker.number.int({ max: 100 }),
+      },
+      {
+        type: "chocolate pretzel",
+        price: 1.5,
+        stock: faker.number.int({ max: 100 }),
+      },
+      {
+        type: faker.commerce.productName(),
+        price: faker.commerce.price({ max: 10 }),
+        stock: faker.number.int({ max: 100 }),
+      },
+    ];
+    for (let i = 0; i < 99; i++) {
+      treatsToPush.push({
+        type: faker.commerce.productName(),
+        price: faker.commerce.price({ max: 10 }),
+        stock: faker.number.int({ max: 100 }),
+      });
+    }
+    const treats = await Promise.all(treatsToPush.map(createTreat));
+    console.log("Treats created:");
+    console.log(treats);
+    console.log("Finished creating treats!");
+  } catch (error) {
+    console.error("Error creating treats!");
     throw error;
   }
 }
@@ -326,6 +383,7 @@ async function rebuildDB() {
     await createTables();
     await createRoles();
     await createInitialUsers();
+    await createInitialTreats();
     await createInitialMerch();
   } catch (error) {}
 }
