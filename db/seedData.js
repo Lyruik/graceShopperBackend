@@ -94,11 +94,11 @@ async function createInitialUsers() {
         email: "fake@glam.com",
       },
       {
-        username: "mike",
-        password: "Password123",
-        firstName: "mike",
-        lastName: "gal",
-        email: "fake@mikeg.com",
+        username: "admin",
+        password: "password123",
+        firstName: "adddy",
+        lastName: "miinnn",
+        email: "fake@admingg.com",
         roleId: 1,
       },
     ];
