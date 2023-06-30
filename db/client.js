@@ -9,12 +9,16 @@ const DB_URL =
 let client;
 
 // github actions client config
-client = new Client({
-  host: "localhost",
-  port: 5432,
-  user: "postgres",
-  password: "postgres",
-  database: "bakery",
-});
+client = new Client(
+  process.env.DATABASE_URL
+    ? process.env.DATABASE_URL
+    : {
+        host: "localhost",
+        port: 5432,
+        user: "postgres",
+        password: "postgres",
+        database: "bakery",
+      }
+);
 
 module.exports = client;

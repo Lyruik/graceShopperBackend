@@ -60,7 +60,7 @@ async function getUserById(userId) {
   try {
     const userInfo = await client.query(
       `
-      SELECT id, username, role_id FROM users WHERE id = ($1)
+      SELECT id, username, role_id, first_name, last_name, address FROM users WHERE id = ($1);
     `,
       [userId]
     );
