@@ -51,8 +51,8 @@ async function createTables() {
             CREATE TABLE cart(
                 id SERIAL PRIMARY KEY,
                 user_id INTEGER REFERENCES users(id),
-                items TEXT,
-                total MONEY NOT NULL
+                treat_id INTEGER REFERENCES treats(id),
+                merch_id INTEGER REFERENCES merch(id)
             );
             
         `);
