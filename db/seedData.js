@@ -102,6 +102,22 @@ async function createInitialUsers() {
         email: "fake@admingg.com",
         roleId: 1,
       },
+      {
+        username: "isafernandez",
+        password: "isafernandez",
+        firstName: "Isaac",
+        lastName: "Fernandez",
+        email: "fake@isaac.com",
+        roleId: 1,
+      },
+      {
+        username: "jeremy-s",
+        password: "password1",
+        firstName: "Jeremy",
+        lastName: "Stanley",
+        email: "fake@jeremy.com",
+        roleId: 1,
+      },
     ];
     for (let i = 0; i < 99; i++) {
       usersToCreate.push({
