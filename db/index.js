@@ -1,5 +1,7 @@
-const { Client } = require("pg");
-
-const client = new Client(
-    
-)
+module.exports = {
+  ...require("./client"),
+  ...require("./users"),
+  ...require("./treats"),
+  ...require("./merch"),
+  ...require("./cart"),
+};

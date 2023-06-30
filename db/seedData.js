@@ -160,6 +160,7 @@ async function createInitialTreats() {
     console.log("Finished creating treats!");
   } catch (error) {
     console.error("Error creating treats!");
+    throw error;
   }
 }
 
