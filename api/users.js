@@ -80,6 +80,7 @@ usersRouter.delete(
 
 usersRouter.get("/me", async (req, res, next) => {
   const { id } = req.user;
+  console.log(req.user);
   try {
     const response = await getUserById(id);
     res.send(response);
