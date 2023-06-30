@@ -78,6 +78,14 @@ usersRouter.delete(
   }
 );
 
+usersRouter.get("/me", async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const response = await getUserById(id);
+    res.send(response);
+  } catch (error) {}
+});
+
 usersRouter.get("/:userId", async (req, res, next) => {
   const { id, role_id } = req.user;
   const { userId } = req.params;
@@ -86,7 +94,7 @@ usersRouter.get("/:userId", async (req, res, next) => {
       const response = await getUserById(userId);
       res.send(response);
     } else {
-      res.send("You are not authorized to view this profile");
+      res.send({ error: "You are not authorized to view this profile" });
     }
   } catch (error) {}
 });
@@ -97,9 +105,9 @@ usersRouter.patch("/:userId", async (req, res, next) => {
   try {
     if (role_id !== 2) {
       if (id !== req.params.userId) {
-        res.send(
-          "You do not have permission to change this user's information"
-        );
+        res.send({
+          error: "You do not have permission to change this user's information",
+        });
       }
     }
     const response = await updateUser({
