@@ -64,8 +64,13 @@ usersRouter.post("/login", async (req, res, next) => {
         message: "You're logged in",
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    res.send({
+      error: "You probably don't have an account!",
+    });
+  }
 });
+
 usersRouter.delete(
   "/:userId",
   requireIdentity,
