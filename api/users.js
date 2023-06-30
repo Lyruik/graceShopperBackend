@@ -64,11 +64,12 @@ usersRouter.post("/login", async (req, res, next) => {
         message: "You're logged in",
       });
     }
-  } catch (error) {
-    res.send({
-      error: "You probably don't have an account!",
-    });
-  }
+    if (!user) {
+      res.send({
+        error: "You probably don't have an account!",
+      });
+    }
+  } catch (error) {}
 });
 
 usersRouter.delete(
