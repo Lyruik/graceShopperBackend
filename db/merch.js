@@ -10,7 +10,6 @@ async function createMerch({ id, type, size, color, price }) {
       `,
       [id, type, size, color, price]
     );
-
     return response.rows[0];
   } catch (error) {}
 }

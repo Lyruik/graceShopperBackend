@@ -11,7 +11,7 @@ async function dropTables() {
   console.log("Dropping tables");
   await client.query(`
     DROP TABLE IF EXISTS cart;
-    DROP TABLE IF EXISTS merchandise;
+    DROP TABLE IF EXISTS merch;
     DROP TABLE IF EXISTS treats;
     DROP TABLE IF EXISTS users;
     DROP TABLE IF EXISTS roles;
@@ -95,11 +95,11 @@ async function createInitialUsers() {
         email: "fake@glam.com",
       },
       {
-        username: "mike",
-        password: "Password123",
-        firstName: "mike",
-        lastName: "gal",
-        email: "fake@mikeg.com",
+        username: "admin",
+        password: "password123",
+        firstName: "adddy",
+        lastName: "miinnn",
+        email: "fake@admingg.com",
         roleId: 1,
       },
     ];
