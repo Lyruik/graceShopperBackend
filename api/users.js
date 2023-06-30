@@ -1,6 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { createUser, getUser, deleteUser, updateUser } = require("../db/users");
+const {
+  createUser,
+  getUser,
+  deleteUser,
+  updateUser,
+  getUserById,
+} = require("../db/users");
 const { requireAdmin, requireIdentity } = require("./utils");
 require("dotenv").config();
 const usersRouter = express.Router();
@@ -70,6 +76,19 @@ usersRouter.delete(
     } catch (error) {}
   }
 );
+
+usersRouter.get("/:userId", async (req, res, next) => {
+  const { id, role_id } = req.user;
+  const { userId } = req.params;
+  try {
+    if (id.toString() === userId || role_id === 1) {
+      const response = await getUserById(userId);
+      res.send(response);
+    } else {
+      res.send("You are not authorized to view this profile");
+    }
+  } catch (error) {}
+});
 
 usersRouter.patch("/:userId", async (req, res, next) => {
   const { username, id, role_id } = req.user;
