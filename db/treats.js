@@ -22,6 +22,18 @@ async function getTreats() {
   } catch (error) {}
 }
 
+async function getTreatById(treatId) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM treats WHERE id = $1
+    `,
+      [treatId]
+    );
+    return response.rows[0];
+  } catch (error) {}
+}
+
 async function updateTreat({ id, fields }) {
   console.log(fields);
   const setString = Object.keys(fields)
@@ -66,4 +78,5 @@ module.exports = {
   getTreats,
   updateTreat,
   deleteTreat,
+  getTreatById,
 };
