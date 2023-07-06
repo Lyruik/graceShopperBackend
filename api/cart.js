@@ -2,29 +2,35 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const { viewCarts, viewUserCart } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
+const { getTreatById } = require("../db/treats");
 require("dotenv").config();
 const cartRouter = express.Router();
 
 cartRouter.get("/", async (req, res, next) => {
   try {
-    const userCart = [];
+    let userCart = [];
     const response = await viewUserCart(req.user.id);
-    response.map(async (row) => {
-      if (row.product_type === "treat") {
-        const newRow = await getTreatById(row.id);
-        userCart.push(newRow);
-      } else if (row.product_type === "merch") {
-        const newRow = await getMerchById(row.id);
-        userCart.push(newRow);
-      }
-      console.log(userCart);
-    });
-    if (userCart.length === response.length) {
-      res.send(userCart);
-    } else {
-      res.send("loading");
+    if (response.length > 1) {
+      await response.map(async (row) => {
+        console.log("at least make it here?");
+        if (row.product_type === "treat") {
+          const newRow = await getTreatById(row.id);
+          userCart.push(newRow);
+          if (userCart.length === response.length) {
+            res.send(userCart);
+          }
+        } else if (row.product_type === "merch") {
+          const newRow = await getMerchById(row.id);
+          userCart.push(newRow);
+          if (userCart.length === response.length) {
+            res.send(userCart);
+          }
+        }
+      });
     }
-  } catch (error) {}
+  } catch (error) {
+    res.send({ error: "Something unexpected happened" });
+  }
 });
 
 module.exports = cartRouter;

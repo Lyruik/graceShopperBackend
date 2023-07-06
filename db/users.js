@@ -51,6 +51,7 @@ async function getUser({ username, password }) {
       `,
         [username]
       );
+      console.log("hellooo", userInfo.rows[0]);
       return userInfo.rows[0];
     }
   } catch (error) {}

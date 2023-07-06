@@ -199,13 +199,13 @@ async function createInitialCarts() {
         quantity: 9,
       },
       {
-        userId: 12,
+        userId: 4,
         productType: "merch",
         productId: 7,
         quantity: 43,
       },
       {
-        userId: 9,
+        userId: 4,
         productType: "treat",
         productId: 58,
         quantity: 49,
