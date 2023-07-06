@@ -16,7 +16,7 @@ async function createTreat({ type, price, stock }) {
 async function getTreats() {
   try {
     const response = await client.query(`
-            SELECT type, stock, price FROM treats;
+            SELECT * FROM treats;
         `);
     return response.rows;
   } catch (error) {}

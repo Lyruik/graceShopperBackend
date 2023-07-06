@@ -3,6 +3,7 @@ const { createTreat } = require("./treats");
 const { createUser } = require("./users");
 const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
+const { addToCart } = require("./cart");
 
 const randomName = faker.person.fullName();
 const randomEmail = faker.internet.email();
@@ -50,9 +51,10 @@ async function createTables() {
             );
             CREATE TABLE cart(
                 id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES users(id),
-                treat_id INTEGER REFERENCES treats(id),
-                merch_id INTEGER REFERENCES merch(id)
+                user_id INTEGER REFERENCES users(id) NOT NULL,
+                product_type VARCHAR(255) NOT NULL,
+                product_id INTEGER NOT NULL,
+                quantity INTEGER
             );
             
         `);
@@ -162,6 +164,61 @@ async function createInitialTreats() {
     console.error("Error creating treats!");
     throw error;
   }
+}
+
+async function createInitialCarts() {
+  console.log("Beginning cart creation");
+  try {
+    const cartsToPush = [
+      {
+        userId: 1,
+        productType: "treat",
+        productId: 2,
+        quantity: 4,
+      },
+      {
+        userId: 5,
+        productType: "merch",
+        productId: 2,
+        quantity: 9,
+      },
+      {
+        userId: 12,
+        productType: "merch",
+        productId: 7,
+        quantity: 43,
+      },
+      {
+        userId: 9,
+        productType: "treat",
+        productId: 58,
+        quantity: 49,
+      },
+    ];
+    for (let i = 0; i < 99; i++) {
+      let productTypeFake = faker.number.int({ max: 2 });
+      if (productTypeFake === 1) {
+        cartsToPush.push({
+          userId: faker.number.int({ max: 100 }),
+          productType: "treat",
+          productId: faker.number.int({ max: 100 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      } else {
+        cartsToPush.push({
+          userId: faker.number.int({ max: 100 }),
+          productType: "merch",
+          productId: faker.number.int({ max: 26 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      }
+    }
+    console.log("almost there carts");
+    const carts = await Promise.all(cartsToPush.map(addToCart));
+    console.log("Carts created:");
+    console.log(cartsToPush);
+    console.log("Finished creating carts!");
+  } catch (error) {}
 }
 
 async function createInitialMerch() {
@@ -385,6 +442,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialTreats();
     await createInitialMerch();
+    await createInitialCarts();
   } catch (error) {}
 }
 
