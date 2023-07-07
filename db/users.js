@@ -51,6 +51,7 @@ async function getUser({ username, password }) {
       `,
         [username]
       );
+      console.log("hellooo", userInfo.rows[0]);
       return userInfo.rows[0];
     }
   } catch (error) {}
@@ -104,10 +105,19 @@ async function updateUser({ id, ...fields }) {
   } catch (error) {}
 }
 
+async function updateAdminSeed() {
+  try {
+    const response = await client.query(`
+      UPDATE users SET id = 777 WHERE username = 'admin';
+    `);
+  } catch (error) {}
+}
+
 module.exports = {
   createUser,
   getUser,
   deleteUser,
   getUserById,
   updateUser,
+  updateAdminSeed,
 };

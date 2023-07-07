@@ -1,6 +1,6 @@
 const client = require("./client");
 const { createTreat } = require("./treats");
-const { createUser } = require("./users");
+const { createUser, updateAdminSeed } = require("./users");
 const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
 const { addToCart } = require("./cart");
@@ -121,7 +121,7 @@ async function createInitialUsers() {
         roleId: 1,
       },
     ];
-    for (let i = 0; i < 99; i++) {
+    for (let i = 7; i < 99; i++) {
       usersToCreate.push({
         username: faker.internet.userName(),
         password: faker.internet.password({ length: 20 }),
@@ -131,6 +131,7 @@ async function createInitialUsers() {
       });
     }
     const users = await Promise.all(usersToCreate.map(createUser));
+    updateAdminSeed();
     console.log("Users created:");
     console.log(users);
     console.log("Finished creating users!");
@@ -187,28 +188,34 @@ async function createInitialCarts() {
   try {
     const cartsToPush = [
       {
-        userId: 1,
+        userId: 777,
         productType: "treat",
         productId: 2,
         quantity: 4,
       },
       {
-        userId: 5,
+        userId: 777,
         productType: "merch",
         productId: 2,
         quantity: 9,
       },
       {
-        userId: 12,
+        userId: 777,
         productType: "merch",
         productId: 7,
         quantity: 43,
       },
       {
-        userId: 9,
+        userId: 777,
         productType: "treat",
         productId: 58,
         quantity: 49,
+      },
+      {
+        userId: 777,
+        productType: "treat",
+        productId: 73,
+        quantity: 3,
       },
     ];
     for (let i = 0; i < 99; i++) {
