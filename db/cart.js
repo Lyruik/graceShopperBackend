@@ -3,7 +3,6 @@ const { getMerchById } = require("./merch");
 const { getTreatById } = require("./treats");
 
 async function addToCart({ userId, productType, productId, quantity }) {
-  console.log("bro why");
   try {
     const response = await client.query(
       `
@@ -54,6 +53,33 @@ async function viewCartById(cartId) {
   } catch (error) {}
 }
 
+async function deleteFromCart(cartId, userId) {
+  try {
+    const response = await client.query(
+      `
+      DELETE FROM cart WHERE id = $1
+      RETURNING *;
+    `,
+      [cartId]
+    );
+    return response.rows[0];
+  } catch (error) {}
+}
+
+async function updateCartItemQuantity(quantity, cardId) {
+  try {
+    const response = await client.query(
+      `
+      UPDATE cart SET quantity = $1 WHERE id = $2
+      RETURNING *;
+    `,
+      [quantity, cardId]
+    );
+    console.log(response.rows);
+    return response.rows[0];
+  } catch (error) {}
+}
+
 /* 
       I may want to use this later but keeping it simple for now and making it give cart id on objects instead
 async function deleteFromCart(userId, productType, productId) {
@@ -70,23 +96,11 @@ async function deleteFromCart(userId, productType, productId) {
 }
 */
 
-async function deleteFromCart(cartId, userId) {
-  try {
-    const response = await client.query(
-      `
-      DELETE FROM cart WHERE id = $1
-      RETURNING *;
-    `,
-      [cartId]
-    );
-    return response.rows[0];
-  } catch (error) {}
-}
-
 module.exports = {
   addToCart,
   viewCarts,
   viewUserCart,
   viewCartById,
   deleteFromCart,
+  updateCartItemQuantity
 };

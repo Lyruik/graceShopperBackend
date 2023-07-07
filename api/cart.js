@@ -6,9 +6,11 @@ const {
   addToCart,
   deleteFromCart,
   viewCartById,
+  updateCartItemQuantity,
 } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
+const { checkCartAuth } = require("./utils");
 require("dotenv").config();
 const cartRouter = express.Router();
 
@@ -16,7 +18,7 @@ cartRouter.get("/", async (req, res, next) => {
   try {
     let userCart = [];
     const response = await viewUserCart(req.user.id);
-    if (response.length > 1) {
+    if (response.length >= 1) {
       response.map(async (row) => {
         if (row.product_type === "treat") {
           const newRow = await getTreatById(row.product_id);
@@ -74,6 +76,15 @@ cartRouter.delete("/", async (req, res, next) => {
         Error: "You do not own this cart item",
       });
     }
+  } catch (error) {}
+});
+
+cartRouter.patch("/", checkCartAuth, async (req, res, next) => {
+  const { quantity, cartId } = req.body;
+  console.log("helo");
+  try {
+    const response = await updateCartItemQuantity(quantity, cartId);
+    res.send(response);
   } catch (error) {}
 });
 
