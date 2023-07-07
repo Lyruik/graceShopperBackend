@@ -218,7 +218,7 @@ async function createInitialCarts() {
         quantity: 3,
       },
     ];
-    for (let i = 0; i < 99; i++) {
+    for (let i = 0; i < 20; i++) {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {
         cartsToPush.push({

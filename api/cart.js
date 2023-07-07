@@ -15,16 +15,17 @@ cartRouter.get("/", async (req, res, next) => {
         if (row.product_type === "treat") {
           const newRow = await getTreatById(row.id);
           userCart.push(newRow);
-          if (userCart.length === response.length) {
+          if (userCart.length === response.length && newRow !== null) {
             res.send(userCart);
           }
         } else if (row.product_type === "merch") {
+          //console.log(row, "me");
           const newRow = await getMerchById(row.id);
           userCart.push(newRow);
           if (userCart.length === response.length) {
             res.send(userCart);
           }
-        }
+        } 
       });
     }
   } catch (error) {
