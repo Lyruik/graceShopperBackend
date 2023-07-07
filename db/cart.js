@@ -35,6 +35,7 @@ async function viewUserCart(userId) {
         `,
       [userId]
     );
+    console.log("elll");
     return response.rows;
   } catch (error) {}
 }
@@ -54,9 +55,6 @@ async function deleteFromCart(userId, productType, productId) {
   } catch (error) {}
 }
 */
-
-//async function
-
 module.exports = {
   addToCart,
   viewCarts,

@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { viewCarts, viewUserCart, addToCart } = require("../db/cart");
+const { viewCarts, viewUserCart } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
 require("dotenv").config();
@@ -9,10 +9,12 @@ const cartRouter = express.Router();
 cartRouter.get("/", async (req, res, next) => {
   try {
     let userCart = [];
+
     const response = await viewUserCart(req.user.id);
+    console.log("at least make it here?");
+    console.log(response);
     if (response.length > 1) {
       await response.map(async (row) => {
-        console.log("at least make it here?");
         if (row.product_type === "treat") {
           const newRow = await getTreatById(row.id);
           userCart.push(newRow);
@@ -32,15 +34,5 @@ cartRouter.get("/", async (req, res, next) => {
     res.send({ error: "Something unexpected happened" });
   }
 });
-
-cartRouter.post("/", async (req, res, next) => {
-  try {
-    const response = await addToCart(req.user.id, )
-  } catch (error) {
-    
-  }
-})
-
-cartRouter.delete("/")
 
 module.exports = cartRouter;
