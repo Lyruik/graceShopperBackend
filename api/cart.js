@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { viewCarts, viewUserCart } = require("../db/cart");
+const { viewCarts, viewUserCart, addToCart } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
 require("dotenv").config();
@@ -32,5 +32,15 @@ cartRouter.get("/", async (req, res, next) => {
     res.send({ error: "Something unexpected happened" });
   }
 });
+
+cartRouter.post("/", async (req, res, next) => {
+  try {
+    const response = await addToCart(req.user.id, )
+  } catch (error) {
+    
+  }
+})
+
+cartRouter.delete("/")
 
 module.exports = cartRouter;

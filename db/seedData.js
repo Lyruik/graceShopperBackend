@@ -210,6 +210,12 @@ async function createInitialCarts() {
         productId: 58,
         quantity: 49,
       },
+      {
+        userId: 4,
+        productType: "treat",
+        productId: 73,
+        quantity: 3,
+      },
     ];
     for (let i = 0; i < 99; i++) {
       let productTypeFake = faker.number.int({ max: 2 });
