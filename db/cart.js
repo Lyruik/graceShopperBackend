@@ -39,6 +39,21 @@ async function viewUserCart(userId) {
   } catch (error) {}
 }
 
+async function viewCartById(cartId) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM cart WHERE id = $1
+    `,
+      [cartId]
+    );
+    if (!response.rows[0]) {
+      return false;
+    }
+    return response.rows[0];
+  } catch (error) {}
+}
+
 /* 
       I may want to use this later but keeping it simple for now and making it give cart id on objects instead
 async function deleteFromCart(userId, productType, productId) {
@@ -54,8 +69,24 @@ async function deleteFromCart(userId, productType, productId) {
   } catch (error) {}
 }
 */
+
+async function deleteFromCart(cartId, userId) {
+  try {
+    const response = await client.query(
+      `
+      DELETE FROM cart WHERE id = $1
+      RETURNING *;
+    `,
+      [cartId]
+    );
+    return response.rows[0];
+  } catch (error) {}
+}
+
 module.exports = {
   addToCart,
   viewCarts,
   viewUserCart,
+  viewCartById,
+  deleteFromCart,
 };

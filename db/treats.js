@@ -1,13 +1,13 @@
 const client = require("./client");
 
-async function createTreat({ type, price, stock }) {
+async function createTreat({ name, price, stock }) {
   try {
     const response = await client.query(
       `
-        INSERT INTO treats (type, price, stock) VALUES ($1, $2, $3)
-        RETURNING type, price, stock;
+        INSERT INTO treats (name, price, stock) VALUES ($1, $2, $3)
+        RETURNING name, price, stock;
       `,
-      [type, price, stock]
+      [name, price, stock]
     );
     return response.rows[0];
   } catch (error) {}

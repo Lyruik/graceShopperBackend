@@ -1,6 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { viewCarts, viewUserCart, addToCart } = require("../db/cart");
+const {
+  viewCarts,
+  viewUserCart,
+  addToCart,
+  deleteFromCart,
+  viewCartById,
+} = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
 require("dotenv").config();
@@ -11,21 +17,24 @@ cartRouter.get("/", async (req, res, next) => {
     let userCart = [];
     const response = await viewUserCart(req.user.id);
     if (response.length > 1) {
-      await response.map(async (row) => {
+      response.map(async (row) => {
         if (row.product_type === "treat") {
-          const newRow = await getTreatById(row.id);
+          const newRow = await getTreatById(row.product_id);
+          newRow.quantity = row.quantity;
+          newRow.id = row.id;
           userCart.push(newRow);
           if (userCart.length === response.length && newRow !== null) {
             res.send(userCart);
           }
         } else if (row.product_type === "merch") {
-          //console.log(row, "me");
-          const newRow = await getMerchById(row.id);
+          const newRow = await getMerchById(row.product_id);
+          newRow.quantity = row.quantity;
+          newRow.id = row.id;
           userCart.push(newRow);
           if (userCart.length === response.length) {
             res.send(userCart);
           }
-        } 
+        }
       });
     }
   } catch (error) {
@@ -46,6 +55,26 @@ cartRouter.post("/", async (req, res, next) => {
   } catch (error) {}
 });
 
-cartRouter.delete("/");
+cartRouter.delete("/", async (req, res, next) => {
+  const { cartId } = req.body;
+  const { id } = req.user;
+  try {
+    const checkCartUser = await viewCartById(cartId);
+    if (checkCartUser.user_id === id) {
+      const response = await deleteFromCart(cartId);
+      res.send(response);
+    }
+    if (!checkCartUser) {
+      res.send({
+        Error: "This cart item does not exist",
+      });
+    }
+    if (checkCartUser.user_id !== id) {
+      res.send({
+        Error: "You do not own this cart item",
+      });
+    }
+  } catch (error) {}
+});
 
 module.exports = cartRouter;

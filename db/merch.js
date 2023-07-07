@@ -1,14 +1,14 @@
 const client = require("./client");
 
-async function createMerch({ id, type, size, color, price }) {
+async function createMerch({ id, name, size, color, price }) {
   try {
     const response = await client.query(
       `
-        INSERT INTO merch (id, "type", "size", "color", price)
+        INSERT INTO merch (id, "name", "size", "color", price)
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING id, type, size, color, price;
+        RETURNING id, name, size, color, price;
       `,
-      [id, type, size, color, price]
+      [id, name, size, color, price]
     );
     return response.rows[0];
   } catch (error) {}
@@ -52,7 +52,7 @@ async function getMerchById(id) {
   }
 }
 
-async function getMerchByType(type) {
+async function getMerchByName(name) {
   try {
     const {
       rows: [merch],
@@ -60,9 +60,9 @@ async function getMerchByType(type) {
       `
     SELECT *
     FROM merch
-    WHERE type = $1;
+    WHERE name = $1;
     `,
-      [type]
+      [name]
     );
 
     if (!merch) {
@@ -189,7 +189,7 @@ module.exports = {
   createMerch,
   getAllMerch,
   getMerchById,
-  getMerchByType,
+  getMerchByName,
   getMerchBySize,
   getMerchByColor,
   getMerchByPrice,
