@@ -35,7 +35,6 @@ async function viewUserCart(userId) {
         `,
       [userId]
     );
-    console.log("elll");
     return response.rows;
   } catch (error) {}
 }
