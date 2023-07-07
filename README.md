@@ -1,35 +1,36 @@
 <img src="https://github.com/jstanley490/grace_shopper/blob/main/src/assets/logo.svg" align ="right" style="height: 64px" />
 
-# Welcome to "Team Munchies" E-Commerce Website!
+# Welcome to the back end repository of "Team Munchies" E-Commerce Website!
+
 Within this website, you will be able to register a user, login as a user, select and add treats and/or merchandise to your cart and checkout with your cart!
 
-* To use the correct features within app, make sure you are logged in correctly as either admin or user.
+- To use the correct features within app, make sure you are logged in correctly as either admin or user.
 
-* For **light editor themes** look at `visualstudio`, `github`, or `xcode`.
+- For **light editor themes** look at `visualstudio`, `github`, or `xcode`.
 
-* For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
+- For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
 
 ### Problems? Please let us know!
 
 If you run into any problems or issues, **please** let us know so we can address and fix them right away.
 
 # Getting Started
-* Install Packages:
 
-```npm i```
+- Install Packages:
 
-* Initialize Database:
+`npm i`
 
-```npm run server:dev```
+- Initialize Database:
 
-* Run Seed Script:
+`npm run server:dev`
 
-```npm run db:build```
+- Run Seed Script:
 
+`npm run db:build`
 
 # Endpoints
 
-## ``` GET /api/merch ```
+## `GET /api/merch`
 
 This endpoint is the most open. It will return all merch currently within our database.
 
@@ -68,7 +69,7 @@ This endpoint is the most open. It will return all merch currently within our da
 }
 ```
 
-## ``` PATCH /api/merch/:merchId ```
+## `PATCH /api/merch/:merchId`
 
 This is the route for creating new merch. The admin will have to supply a JSON Body like so:
 
@@ -82,7 +83,7 @@ This is the route for creating new merch. The admin will have to supply a JSON B
 }
 ```
 
-## ``` DELETE /api/merch/:merchId ```
+## `DELETE /api/merch/:merchId`
 
 This is the route for deleting a piece or pieces of merch. The user has to supply a JSON Body like so:
 
@@ -96,7 +97,7 @@ This is the route for deleting a piece or pieces of merch. The user has to suppl
 }
 ```
 
-## ``` GET /api/treats ```
+## `GET /api/treats`
 
 This endpoint is the most open. It will return all treats currently within our database.
 
@@ -125,7 +126,7 @@ This endpoint is the most open. It will return all treats currently within our d
 }
 ```
 
-## ``` PATCH /api/treats/:treatsId ```
+## `PATCH /api/treats/:treatsId`
 
 This is the route for creating new treats. The admin will have to supply a JSON Body like so:
 
@@ -138,7 +139,7 @@ This is the route for creating new treats. The admin will have to supply a JSON 
 }
 ```
 
-## ``` DELETE /api/treats/:treatsId ```
+## `DELETE /api/treats/:treatsId`
 
 This is the route for deleting a piece or pieces of treats. The user has to supply a JSON Body like so:
 
@@ -155,29 +156,27 @@ This is the route for deleting a piece or pieces of treats. The user has to supp
 
 We will also create a database adapter with the following exported methods:
 
-## ```getAllMerch()```
+## `getAllMerch()`
 
 This relates to our first route within merch, which allows us to collect all merch in our database.
 
-
-## ```updateMerch()```
+## `updateMerch()`
 
 This relates to our next route concerning merch. This allows us to update said merch fields.
 
-## ```deleteMerch()```
+## `deleteMerch()`
 
 This is our last route pertaining to merch. This last route allows us to delete said merch and it's fields.
 
-## ```getAllTreats()```
+## `getAllTreats()`
 
 This relates to our first route within treats, which allows us to collect all treats in our database.
 
-## ```updateTreats()```
+## `updateTreats()`
 
 This relates to our next route concerning treats. This allows us to update said treats fields.
 
-
-## ```deleteTreats()```
+## `deleteTreats()`
 
 This is our last route pertaining to treats. This last route allows us to delete said treats and it's fields.
 
@@ -185,17 +184,18 @@ This is our last route pertaining to treats. This last route allows us to delete
 
 We created a pretty basic server. It will have the following:
 
-* ```app.js``` (top level) - this is your server file
-* ```api/index.js``` - this is your routes file
-* ```db/index.js``` - this is your database adapter file
+- `app.js` (top level) - this is your server file
+- `api/index.js` - this is your routes file
+- `db/index.js` - this is your database adapter file
 
 # Database Adapter
 
-This is testable by running ```npm run db:build```, which runs the table drop, table build, and testing functions.
+This is testable by running `npm run db:build`, which runs the table drop, table build, and testing functions.
 
 # API
 
-You can test these api routes by using ```'thunderclient'``` if you'd like.
+You can test these api routes by using `'thunderclient'` if you'd like.
 
-## *Video on how we built our backend* ~~Trust me~~ :point_down: :wink:
+## _Video on how we built our backend_ ~~Trust me~~ :point_down: :wink:
+
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
