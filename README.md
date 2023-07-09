@@ -5,7 +5,7 @@ Within this website, you will be able to register a user, login as a user, selec
 
 * To use the correct features within app, make sure you are logged in correctly as either admin or user.
 
-### Problems? Please let us know!
+# Problems? Please let us know!
 * If you run into any problems or issues, **please** let us know so we can address and fix them right away.
 
 # Getting Started
