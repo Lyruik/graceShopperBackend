@@ -192,5 +192,5 @@ This is testable by running ```npm run db:build```, which runs the table drop, t
 
 You can test these api routes by using ```'thunderclient'``` if you'd like.
 
-## *Click here to view our ```front end repository!```*:point_down:
+## *Click here to view our ```front end``` repository!*:point_down:
 * [```Team Munchies front end repository!```](https://github.com/jstanley490/grace_shopper/tree/main)
