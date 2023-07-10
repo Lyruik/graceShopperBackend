@@ -39,6 +39,7 @@ async function createTables() {
             CREATE TABLE treats(
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) UNIQUE NOT NULL,
+                description VARCHAR(255),
                 stock SMALLINT,
                 price MONEY NOT NULL,
                 photo TEXT
@@ -148,24 +149,28 @@ async function createInitialTreats() {
     const treatsToPush = [
       {
         name: "chocolate chip cookie",
+        description: faker.commerce.productDescription(),
         price: 1,
         stock: faker.number.int({ max: 100 }),
         image: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
         name: "fudge brownie",
+        description: faker.commerce.productDescription(),
         price: 2.5,
         stock: faker.number.int({ max: 100 }),
         image: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: "chocolate pretzel",
+        description: faker.commerce.productDescription(),
         price: 1.5,
         stock: faker.number.int({ max: 100 }),
         image: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
         image: faker.image.urlLoremFlickr({ category: "brownies" }),
@@ -175,6 +180,7 @@ async function createInitialTreats() {
     for (let i = 0; i < 99; i++) {
       treatsToPush.push({
         name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
         image: faker.image.urlLoremFlickr({ category: "cookie" }),
