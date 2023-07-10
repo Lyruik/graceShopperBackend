@@ -12,7 +12,7 @@ async function addToCart({ userId, productType, productId, quantity }) {
     `,
       [userId, productType, productId, quantity]
     );
-    console.log(response.rows);
+    //console.log(response.rows);
     return response.rows;
   } catch (error) {}
 }
@@ -102,5 +102,5 @@ module.exports = {
   viewUserCart,
   viewCartById,
   deleteFromCart,
-  updateCartItemQuantity
+  updateCartItemQuantity,
 };

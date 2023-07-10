@@ -40,7 +40,8 @@ async function createTables() {
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) UNIQUE NOT NULL,
                 stock SMALLINT,
-                price MONEY NOT NULL
+                price MONEY NOT NULL,
+                photo TEXT
             );
             CREATE TABLE merch(
                 id SERIAL PRIMARY KEY,
@@ -133,7 +134,7 @@ async function createInitialUsers() {
     const users = await Promise.all(usersToCreate.map(createUser));
     updateAdminSeed();
     console.log("Users created:");
-    console.log(users);
+    //console.log(users);
     console.log("Finished creating users!");
   } catch (error) {
     console.error("Error creating users!");
@@ -149,33 +150,39 @@ async function createInitialTreats() {
         name: "chocolate chip cookie",
         price: 1,
         stock: faker.number.int({ max: 100 }),
+        image: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
         name: "fudge brownie",
         price: 2.5,
         stock: faker.number.int({ max: 100 }),
+        image: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: "chocolate pretzel",
         price: 1.5,
         stock: faker.number.int({ max: 100 }),
+        image: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: faker.commerce.productName(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
+        image: faker.image.urlLoremFlickr({ category: "brownies" }),
       },
     ];
+    console.log(treatsToPush);
     for (let i = 0; i < 99; i++) {
       treatsToPush.push({
         name: faker.commerce.productName(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
+        image: faker.image.urlLoremFlickr({ category: "cookie" }),
       });
     }
     const treats = await Promise.all(treatsToPush.map(createTreat));
     console.log("Treats created:");
-    console.log(treats);
+    //console.log(treats);
     console.log("Finished creating treats!");
   } catch (error) {
     console.error("Error creating treats!");
@@ -239,7 +246,7 @@ async function createInitialCarts() {
     console.log("almost there carts");
     const carts = await Promise.all(cartsToPush.map(addToCart));
     console.log("Carts created:");
-    console.log(cartsToPush);
+    //console.log(carts);
     console.log("Finished creating carts!");
   } catch (error) {}
 }
@@ -448,7 +455,7 @@ async function createInitialMerch() {
 
     const merch = await Promise.all(merchToCreate.map(createMerch));
     console.log("Merch created:");
-    console.log(merch);
+    //console.log(merch);
     console.log("Finished creating merch!");
   } catch (error) {
     console.error("Error creating merch!");
