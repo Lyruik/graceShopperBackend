@@ -27,9 +27,11 @@ cartRouter.get("/", async (req, res, next) => {
           }
         }
       });
+    } else {
+      res.send({ Empty: "You do not have any items in cart" });
     }
   } catch (error) {
-    res.send({ error: "Something unexpected happened" });
+    res.send({ error: "Something unexpected happened!" });
   }
 });
 
