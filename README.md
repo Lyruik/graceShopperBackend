@@ -1,17 +1,12 @@
 <img src="https://github.com/jstanley490/grace_shopper/blob/main/src/assets/logo.svg" align ="right" style="height: 64px" />
 
-# Welcome to "Team Munchies" E-Commerce Website!
+# Welcome to the ```back end``` repository of "Team Munchies" E-Commerce Website!
 Within this website, you will be able to register a user, login as a user, select and add treats and/or merchandise to your cart and checkout with your cart!
 
 * To use the correct features within app, make sure you are logged in correctly as either admin or user.
 
-* For **light editor themes** look at `visualstudio`, `github`, or `xcode`.
-
-* For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
-
-### Problems? Please let us know!
-
-If you run into any problems or issues, **please** let us know so we can address and fix them right away.
+# Problems? Please let us know!
+* If you run into any problems or issues, **please** let us know so we can address and fix them right away.
 
 # Getting Started
 * Install Packages:
@@ -197,5 +192,5 @@ This is testable by running ```npm run db:build```, which runs the table drop, t
 
 You can test these api routes by using ```'thunderclient'``` if you'd like.
 
-## *Video on how we built our backend* ~~Trust me~~ :point_down: :wink:
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
+## *Click here to view our ```front end``` repository!*:point_down:
+* [```Team Munchies front end repository!```](https://github.com/jstanley490/grace_shopper/tree/main)

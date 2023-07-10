@@ -1,3 +1,5 @@
+const { viewCartById } = require("../db/cart");
+
 function requireAdmin(req, res, next) {
   if (req.user.role_id !== 1) {
     res.send({
@@ -19,7 +21,20 @@ function requireIdentity(req, res, next) {
   next();
 }
 
+async function checkCartAuth(req, res, next) {
+  const checkOwner = await viewCartById(req.body.cartId);
+  console.log(checkOwner, req.user);
+  if (req.user.role_id === 1 || checkOwner.user_id === req.user.id) {
+    next();
+  } else {
+    res.send({
+      Error: "You are not authorized to view/change this",
+    });
+  }
+}
+
 module.exports = {
   requireAdmin,
   requireIdentity,
+  checkCartAuth,
 };

@@ -105,10 +105,19 @@ async function updateUser({ id, ...fields }) {
   } catch (error) {}
 }
 
+async function updateAdminSeed() {
+  try {
+    const response = await client.query(`
+      UPDATE users SET id = 777 WHERE username = 'admin';
+    `);
+  } catch (error) {}
+}
+
 module.exports = {
   createUser,
   getUser,
   deleteUser,
   getUserById,
   updateUser,
+  updateAdminSeed,
 };
