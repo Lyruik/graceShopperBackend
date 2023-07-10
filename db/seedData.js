@@ -152,28 +152,28 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         price: 1,
         stock: faker.number.int({ max: 100 }),
-        image: faker.image.urlLoremFlickr({ category: "food" }),
+        photo: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
         name: "fudge brownie",
         description: faker.commerce.productDescription(),
         price: 2.5,
         stock: faker.number.int({ max: 100 }),
-        image: faker.image.urlLoremFlickr({ category: "cookies" }),
+        photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: "chocolate pretzel",
         description: faker.commerce.productDescription(),
         price: 1.5,
         stock: faker.number.int({ max: 100 }),
-        image: faker.image.urlLoremFlickr({ category: "cookies" }),
+        photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
-        image: faker.image.urlLoremFlickr({ category: "brownies" }),
+        photo: faker.image.urlLoremFlickr({ category: "brownies" }),
       },
     ];
     console.log(treatsToPush);
@@ -183,7 +183,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
-        image: faker.image.urlLoremFlickr({ category: "cookie" }),
+        photo: faker.image.urlLoremFlickr({ category: "cookie" }),
       });
     }
     const treats = await Promise.all(treatsToPush.map(createTreat));

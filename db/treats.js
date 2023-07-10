@@ -5,7 +5,7 @@ async function createTreat({ name, description, price, stock, photo }) {
     const response = await client.query(
       `
         INSERT INTO treats (name, description, price, stock, photo) VALUES ($1, $2, $3, $4, $5)
-        RETURNING name, price, stock, photo;
+        RETURNING name, description, price, stock, photo;
       `,
       [name, description, price, stock, photo]
     );
