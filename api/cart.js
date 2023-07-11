@@ -91,7 +91,7 @@ cartRouter.patch("/", checkCartAuth, async (req, res, next) => {
   } catch (error) {}
 });
 
-cartRouter.patch("/checkout", checkCartAuth, async (req, res, next) => {
+cartRouter.patch("/checkout", async (req, res, next) => {
   const { id } = req.user;
   try {
     const response = await checkoutCartClear(id);
