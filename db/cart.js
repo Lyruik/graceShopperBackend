@@ -80,6 +80,18 @@ async function updateCartItemQuantity(quantity, cardId) {
   } catch (error) {}
 }
 
+async function checkoutCart(userId) {
+  try {
+    const response = await client.query(
+      `
+      UPDATE cart SET status = 'purchased' WHERE user_id = $1;
+    `,
+      [userId]
+    );
+    return;
+  } catch (error) {}
+}
+
 /* 
       I may want to use this later but keeping it simple for now and making it give cart id on objects instead
 async function deleteFromCart(userId, productType, productId) {
@@ -103,4 +115,5 @@ module.exports = {
   viewCartById,
   deleteFromCart,
   updateCartItemQuantity,
+  checkoutCart,
 };

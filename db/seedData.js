@@ -56,7 +56,8 @@ async function createTables() {
                 user_id INTEGER REFERENCES users(id) NOT NULL,
                 product_type VARCHAR(255) NOT NULL,
                 product_id INTEGER NOT NULL,
-                quantity INTEGER
+                quantity INTEGER,
+                status VARCHAR(255) NOT NULL DEFAULT 'active'
             );
             
         `);
