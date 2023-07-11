@@ -23,7 +23,6 @@ function requireIdentity(req, res, next) {
 
 async function checkCartAuth(req, res, next) {
   const checkOwner = await viewCartById(req.body.cartId);
-  console.log(checkOwner, req.user);
   if (req.user.role_id === 1 || checkOwner.user_id === req.user.id) {
     next();
   } else {

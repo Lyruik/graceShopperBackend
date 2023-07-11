@@ -35,7 +35,6 @@ async function getTreatById(treatId) {
 }
 
 async function updateTreat({ id, fields }) {
-  console.log(fields);
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -43,7 +42,6 @@ async function updateTreat({ id, fields }) {
   if (setString.length === 0) {
     return;
   }
-  console.log(setString);
   try {
     const {
       rows: [updatedInfo],

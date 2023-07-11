@@ -16,7 +16,6 @@ treatsRouter.patch(
   requireIdentity,
   requireAdmin,
   async (req, res, next) => {
-    console.log(req.body);
     const id = req.params.treatId;
     try {
       const response = await updateTreat({
@@ -32,7 +31,6 @@ treatsRouter.delete(
   requireIdentity,
   requireAdmin,
   async (req, res, next) => {
-    console.log(req.user);
     try {
       const response = await deleteTreat(req.params.treatId);
       res.send(response);

@@ -84,7 +84,6 @@ cartRouter.delete("/", async (req, res, next) => {
 
 cartRouter.patch("/", checkCartAuth, async (req, res, next) => {
   const { quantity, cartId } = req.body;
-  console.log("helo");
   try {
     const response = await updateCartItemQuantity(quantity, cartId);
     res.send(response);

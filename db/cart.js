@@ -12,7 +12,6 @@ async function addToCart({ userId, productType, productId, quantity }) {
     `,
       [userId, productType, productId, quantity]
     );
-    //console.log(response.rows);
     return response.rows;
   } catch (error) {}
 }
@@ -75,7 +74,6 @@ async function updateCartItemQuantity(quantity, cartId) {
     `,
       [quantity, cartId]
     );
-    console.log(response.rows);
     return response.rows[0];
   } catch (error) {}
 }

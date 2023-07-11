@@ -136,7 +136,7 @@ async function createInitialUsers() {
     const users = await Promise.all(usersToCreate.map(createUser));
     updateAdminSeed();
     console.log("Users created:");
-    //console.log(users);
+    console.log(users);
     console.log("Finished creating users!");
   } catch (error) {
     console.error("Error creating users!");
@@ -189,7 +189,7 @@ async function createInitialTreats() {
     }
     const treats = await Promise.all(treatsToPush.map(createTreat));
     console.log("Treats created:");
-    //console.log(treats);
+    console.log(treats);
     console.log("Finished creating treats!");
   } catch (error) {
     console.error("Error creating treats!");
@@ -253,7 +253,6 @@ async function createInitialCarts() {
     console.log("almost there carts");
     const carts = await Promise.all(cartsToPush.map(addToCart));
     console.log("Carts created:");
-    //console.log(carts);
     console.log("Finished creating carts!");
   } catch (error) {}
 }
@@ -462,7 +461,7 @@ async function createInitialMerch() {
 
     const merch = await Promise.all(merchToCreate.map(createMerch));
     console.log("Merch created:");
-    //console.log(merch);
+    console.log(merch);
     console.log("Finished creating merch!");
   } catch (error) {
     console.error("Error creating merch!");
