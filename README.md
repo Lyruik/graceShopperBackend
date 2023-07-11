@@ -1,7 +1,10 @@
 <img src="https://github.com/jstanley490/grace_shopper/blob/main/src/assets/logo.svg" align ="right" style="height: 64px" />
 
 # Welcome to the ```back end``` repository of "Team Munchies" E-Commerce Website!
+
 Within this website, you will be able to register a user, login as a user, select and add treats and/or merchandise to your cart and checkout with your cart!
+
+* Built by ```Jeremy Stanley```, ```Mike Wadsworth```, ```Isaac Fernandez```, and ```Jason Buller```.
 
 * To use the correct features within app, make sure you are logged in correctly as either admin or user.
 
