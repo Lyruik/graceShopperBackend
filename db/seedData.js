@@ -230,6 +230,24 @@ async function createInitialCarts() {
         quantity: 3,
       },
     ];
+    for (let i = 0; i < 10; i++) {
+      let productTypeFake = faker.number.int({ max: 2 });
+      if (productTypeFake === 1) {
+        cartsToPush.push({
+          userId: 777,
+          productType: "treat",
+          productId: faker.number.int({ max: 100 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      } else {
+        cartsToPush.push({
+          userId: 777,
+          productType: "merch",
+          productId: faker.number.int({ max: 26 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      }
+    }
     for (let i = 0; i < 99; i++) {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {

@@ -8,11 +8,11 @@ const {
   getUserById,
   getAllUsers,
 } = require("../db/users");
-const { requireAdmin, requireIdentity } = require("./utils");
+const { requireAdmin, requireIdentity, isEmailValid } = require("./utils");
 require("dotenv").config();
 const usersRouter = express.Router();
 
-usersRouter.post("/register", async (req, res, next) => {
+usersRouter.post("/register", isEmailValid, async (req, res, next) => {
   const { username, password } = req.body;
   try {
     if (password.length < 8) {
