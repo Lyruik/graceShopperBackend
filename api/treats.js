@@ -1,7 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const { getTreats, updateTreat, deleteTreat } = require("../db/treats");
+const {
+  getTreats,
+  updateTreat,
+  deleteTreat,
+  getTreatsByCategory,
+} = require("../db/treats");
 const { requireAdmin, requireIdentity } = require("./utils");
 const treatsRouter = express.Router();
 
@@ -26,6 +31,15 @@ treatsRouter.patch(
     } catch (error) {}
   }
 );
+
+treatsRouter.get("/:category", async (req, res, next) => {
+  const { category } = req.params;
+  try {
+    const response = await getTreatsByCategory(category);
+    res.send(response);
+  } catch (error) {}
+});
+
 treatsRouter.delete(
   "/:treatId",
   requireIdentity,
