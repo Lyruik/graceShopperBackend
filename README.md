@@ -6,7 +6,7 @@ Within this website, you will be able to register a user, login as a user, selec
 
 * Built by ```Jeremy Stanley```, ```Mike Wadsworth```, ```Isaac Fernandez```, and ```Jason Buller```.
 
-* To use the correct features within app, make sure you are logged in correctly as either admin or user.
+* To use the correct features within app, make sure you are logged in correctly as either ```admin``` or ```user```.
 
 # Problems? Please let us know!
 * If you run into any problems or issues, **please** let us know so we can address and fix them right away.
