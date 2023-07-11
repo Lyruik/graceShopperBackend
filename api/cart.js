@@ -7,7 +7,7 @@ const {
   deleteFromCart,
   viewCartById,
   updateCartItemQuantity,
-  checkoutCart,
+  checkoutCartClear,
 } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
@@ -91,12 +91,12 @@ cartRouter.patch("/", checkCartAuth, async (req, res, next) => {
   } catch (error) {}
 });
 
-cartRouter.patch("/checkout", async (req, res, next) => {
+cartRouter.patch("/checkout", checkCartAuth, async (req, res, next) => {
   const { id } = req.user;
   try {
-    await checkoutCart(id);
+    const response = await checkoutCartClear(id);
     res.send({
-      messsage: "Thank you for shopping with us!",
+      Message: "Thank you for purchasing from our store!",
     });
   } catch (error) {}
 });

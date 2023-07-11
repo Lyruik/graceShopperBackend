@@ -30,7 +30,7 @@ async function viewUserCart(userId) {
   try {
     const response = await client.query(
       `
-      SELECT * FROM cart WHERE user_id = $1
+      SELECT * FROM cart WHERE user_id = $1 AND status = 'active';
         `,
       [userId]
     );
@@ -66,29 +66,28 @@ async function deleteFromCart(cartId, userId) {
   } catch (error) {}
 }
 
-async function updateCartItemQuantity(quantity, cardId) {
+async function updateCartItemQuantity(quantity, cartId) {
   try {
     const response = await client.query(
       `
       UPDATE cart SET quantity = $1 WHERE id = $2
       RETURNING *;
     `,
-      [quantity, cardId]
+      [quantity, cartId]
     );
     console.log(response.rows);
     return response.rows[0];
   } catch (error) {}
 }
 
-async function checkoutCart(userId) {
+async function checkoutCartClear(userId) {
   try {
-    const response = await client.query(
+    const respone = await client.query(
       `
       UPDATE cart SET status = 'purchased' WHERE user_id = $1;
     `,
       [userId]
     );
-    return;
   } catch (error) {}
 }
 
@@ -115,5 +114,5 @@ module.exports = {
   viewCartById,
   deleteFromCart,
   updateCartItemQuantity,
-  checkoutCart,
+  checkoutCartClear,
 };

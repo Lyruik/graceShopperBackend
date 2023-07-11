@@ -236,14 +236,14 @@ async function createInitialCarts() {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {
         cartsToPush.push({
-          userId: faker.number.int({ max: 100 }),
+          userId: faker.number.int({ max: 10 }),
           productType: "treat",
           productId: faker.number.int({ max: 100 }),
           quantity: faker.number.int({ max: 20 }),
         });
       } else {
         cartsToPush.push({
-          userId: faker.number.int({ max: 100 }),
+          userId: faker.number.int({ max: 10 }),
           productType: "merch",
           productId: faker.number.int({ max: 26 }),
           quantity: faker.number.int({ max: 20 }),
