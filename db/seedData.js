@@ -40,6 +40,7 @@ async function createTables() {
                 id SERIAL PRIMARY KEY,
                 name VARCHAR(255) UNIQUE NOT NULL,
                 description VARCHAR(255),
+                category VARCHAR(255) NOT NULL,
                 stock SMALLINT,
                 price MONEY NOT NULL,
                 photo TEXT
@@ -151,6 +152,7 @@ async function createInitialTreats() {
       {
         name: "chocolate chip cookie",
         description: faker.commerce.productDescription(),
+        category: "cookie",
         price: 1,
         stock: faker.number.int({ max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "food" }),
@@ -158,23 +160,18 @@ async function createInitialTreats() {
       {
         name: "fudge brownie",
         description: faker.commerce.productDescription(),
+        category: "brownie",
         price: 2.5,
         stock: faker.number.int({ max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
-        name: "chocolate pretzel",
+        name: "snickerdoodle",
         description: faker.commerce.productDescription(),
+        category: "cookie",
         price: 1.5,
         stock: faker.number.int({ max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
-      },
-      {
-        name: faker.commerce.productName(),
-        description: faker.commerce.productDescription(),
-        price: faker.commerce.price({ max: 10 }),
-        stock: faker.number.int({ max: 100 }),
-        photo: faker.image.urlLoremFlickr({ category: "brownies" }),
       },
     ];
     console.log(treatsToPush);
@@ -182,6 +179,7 @@ async function createInitialTreats() {
       treatsToPush.push({
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
+        category: faker.helpers.arrayElement(["cookie", "brownie"]),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookie" }),

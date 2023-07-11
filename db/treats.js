@@ -1,13 +1,20 @@
 const client = require("./client");
 
-async function createTreat({ name, description, price, stock, photo }) {
+async function createTreat({
+  name,
+  description,
+  category,
+  price,
+  stock,
+  photo,
+}) {
   try {
     const response = await client.query(
       `
-        INSERT INTO treats (name, description, price, stock, photo) VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO treats (name, description, category, price, stock, photo) VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING name, description, price, stock, photo;
       `,
-      [name, description, price, stock, photo]
+      [name, description, category, price, stock, photo]
     );
     return response.rows[0];
   } catch (error) {}
@@ -33,6 +40,8 @@ async function getTreatById(treatId) {
     return response.rows[0];
   } catch (error) {}
 }
+
+async function getTreatsByCategory() {}
 
 async function updateTreat({ id, fields }) {
   const setString = Object.keys(fields)
