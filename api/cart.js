@@ -7,6 +7,7 @@ const {
   deleteFromCart,
   viewCartById,
   updateCartItemQuantity,
+  checkoutCartClear,
 } = require("../db/cart");
 const { getMerchById } = require("../db/merch");
 const { getTreatById } = require("../db/treats");
@@ -87,6 +88,16 @@ cartRouter.patch("/", checkCartAuth, async (req, res, next) => {
   try {
     const response = await updateCartItemQuantity(quantity, cartId);
     res.send(response);
+  } catch (error) {}
+});
+
+cartRouter.patch("/checkout", checkCartAuth, async (req, res, next) => {
+  const { id } = req.user;
+  try {
+    const response = await checkoutCartClear(id);
+    res.send({
+      Message: "Thank you for purchasing from our store!",
+    });
   } catch (error) {}
 });
 
