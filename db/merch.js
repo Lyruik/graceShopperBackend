@@ -1,14 +1,14 @@
 const client = require("./client");
 
-async function createMerch({ id, name, size, color, price }) {
+async function createMerch({ id, type, size, color, price }) {
   try {
     const response = await client.query(
       `
-        INSERT INTO merch (id, "name", "size", "color", price)
+        INSERT INTO merch (id, type, size, color, price)
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING id, name, size, color, price;
+        RETURNING id, type, size, color, price;
       `,
-      [id, name, size, color, price]
+      [id, type, size, color, price]
     );
     return response.rows[0];
   } catch (error) {}

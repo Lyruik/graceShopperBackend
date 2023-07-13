@@ -47,7 +47,7 @@ async function createTables() {
             );
             CREATE TABLE merch(
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                type VARCHAR(255) NOT NULL,
                 size VARCHAR(50) NOT NULL,
                 color VARCHAR(50),
                 price MONEY NOT NULL
