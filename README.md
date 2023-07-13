@@ -4,17 +4,13 @@
 
 Within this website, you will be able to register a user, login as a user, select and add treats and/or merchandise to your cart and checkout with your cart!
 
-<<<<<<< HEAD
+- Built by `Jeremy Stanley`, `Mike Wadsworth`, `Isaac Fernandez`, and `Jason Buller`.
 
-- To use the correct features within app, make sure you are logged in correctly as either admin or user.
+- To use the correct features within app, make sure you are logged in correctly as either `admin` or `user`.
 
-* To use the correct features within app, make sure you are logged in correctly as either `admin` or `user`.
+# Problems? Please let us know!
 
-* For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
-
-### Problems? Please let us know!
-
-If you run into any problems or issues, **please** let us know so we can address and fix them right away.
+- If you run into any problems or issues, **please** let us know so we can address and fix them right away.
 
 # Getting Started
 
@@ -198,13 +194,6 @@ This is testable by running `npm run db:build`, which runs the table drop, table
 
 You can test these api routes by using `'thunderclient'` if you'd like.
 
-## _Video on how we built our backend_ ~~Trust me~~ :point_down: :wink:
-
-<<<<<<< HEAD
-https://www.youtube.com/watch?v=dQw4w9WgXcQ
-=======
-
 ## _Click here to view our `front end` repository!_:point_down:
 
 - [`Team Munchies front end repository!`](https://github.com/jstanley490/grace_shopper/tree/main)
-  > > > > > > > 05798c1ecd2414b927666e25a2d35ba4e3f8817d
