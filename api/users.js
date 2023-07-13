@@ -7,12 +7,13 @@ const {
   updateUser,
   getUserById,
   getAllUsers,
+  createAdmin,
 } = require("../db/users");
 const { requireAdmin, requireIdentity, isEmailValid } = require("./utils");
 require("dotenv").config();
 const usersRouter = express.Router();
 
-usersRouter.post("/register", isEmailValid, async (req, res, next) => {
+usersRouter.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
   try {
     if (password.length < 8) {
@@ -69,6 +70,13 @@ usersRouter.post("/login", async (req, res, next) => {
         error: "You probably don't have an account!",
       });
     }
+  } catch (error) {}
+});
+
+usersRouter.post("/createadmin", requireAdmin, async (req, res, next) => {
+  try {
+    const response = await createAdmin(req.body);
+    res.send(response);
   } catch (error) {}
 });
 

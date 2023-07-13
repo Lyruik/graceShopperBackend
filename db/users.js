@@ -23,7 +23,24 @@ async function createUser({
         [username, hash, firstName, lastName, email]
       );
       return createduser.rows[0];
+    } else {
+      return {
+        Error: "Invalid request",
+      };
     }
+  } catch (error) {}
+}
+
+async function createAdmin({
+  username,
+  password,
+  firstName,
+  lastName,
+  email,
+  roleId,
+}) {
+  try {
+    const hash = await bcrypt.hash(password, 10);
     const createduser = await client.query(
       `
       INSERT INTO users (username, password, first_name, last_name, email, role_id) VALUES ($1, $2, $3, $4, $5, $6)
@@ -129,4 +146,5 @@ module.exports = {
   updateUser,
   updateAdminSeed,
   getAllUsers,
+  createAdmin,
 };
