@@ -53,6 +53,7 @@ usersRouter.post("/register", async (req, res, next) => {
     next(error);
   }
 });
+
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
   try {
