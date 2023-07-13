@@ -6,12 +6,13 @@ const {
   deleteUser,
   updateUser,
   getUserById,
+  getAllUsers,
 } = require("../db/users");
-const { requireAdmin, requireIdentity } = require("./utils");
+const { requireAdmin, requireIdentity, isEmailValid } = require("./utils");
 require("dotenv").config();
 const usersRouter = express.Router();
 
-usersRouter.post("/register", async (req, res, next) => {
+usersRouter.post("/register", isEmailValid, async (req, res, next) => {
   const { username, password } = req.body;
   try {
     if (password.length < 8) {
@@ -48,7 +49,6 @@ usersRouter.post("/register", async (req, res, next) => {
 
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
-  console.log(req.body);
   try {
     const user = await getUser(req.body);
     if (user) {
@@ -87,9 +87,15 @@ usersRouter.delete(
 
 usersRouter.get("/me", async (req, res, next) => {
   const { id } = req.user;
-  console.log(req.user);
   try {
     const response = await getUserById(id);
+    res.send(response);
+  } catch (error) {}
+});
+
+usersRouter.get("/accounts", requireAdmin, async (req, res, next) => {
+  try {
+    const response = await getAllUsers();
     res.send(response);
   } catch (error) {}
 });
@@ -128,6 +134,5 @@ usersRouter.patch("/:userId", async (req, res, next) => {
     res.send(response);
   } catch (error) {}
 });
-
 
 module.exports = usersRouter;

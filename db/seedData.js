@@ -38,13 +38,16 @@ async function createTables() {
             );
             CREATE TABLE treats(
                 id SERIAL PRIMARY KEY,
-                type VARCHAR(255) UNIQUE NOT NULL,
+                name VARCHAR(255) UNIQUE NOT NULL,
+                description VARCHAR(255),
+                category VARCHAR(255) NOT NULL,
                 stock SMALLINT,
-                price MONEY NOT NULL
+                price MONEY NOT NULL,
+                photo TEXT
             );
             CREATE TABLE merch(
                 id SERIAL PRIMARY KEY,
-                type VARCHAR(255) NOT NULL,
+                name VARCHAR(255) NOT NULL,
                 size VARCHAR(50) NOT NULL,
                 color VARCHAR(50),
                 price MONEY NOT NULL
@@ -54,7 +57,8 @@ async function createTables() {
                 user_id INTEGER REFERENCES users(id) NOT NULL,
                 product_type VARCHAR(255) NOT NULL,
                 product_id INTEGER NOT NULL,
-                quantity INTEGER
+                quantity INTEGER,
+                status VARCHAR(255) NOT NULL DEFAULT 'active'
             );
             
         `);
@@ -146,31 +150,39 @@ async function createInitialTreats() {
   try {
     const treatsToPush = [
       {
-        type: "chocolate chip cookie",
+        name: "chocolate chip cookie",
+        description: faker.commerce.productDescription(),
+        category: "cookie",
         price: 1,
         stock: faker.number.int({ max: 100 }),
+        photo: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
-        type: "fudge brownie",
+        name: "fudge brownie",
+        description: faker.commerce.productDescription(),
+        category: "brownie",
         price: 2.5,
         stock: faker.number.int({ max: 100 }),
+        photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
-        type: "chocolate pretzel",
+        name: "snickerdoodle",
+        description: faker.commerce.productDescription(),
+        category: "cookie",
         price: 1.5,
         stock: faker.number.int({ max: 100 }),
-      },
-      {
-        type: faker.commerce.productName(),
-        price: faker.commerce.price({ max: 10 }),
-        stock: faker.number.int({ max: 100 }),
+        photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
     ];
+    console.log(treatsToPush);
     for (let i = 0; i < 99; i++) {
       treatsToPush.push({
-        type: faker.commerce.productName(),
+        name: faker.commerce.productName(),
+        description: faker.commerce.productDescription(),
+        category: faker.helpers.arrayElement(["cookie", "brownie"]),
         price: faker.commerce.price({ max: 10 }),
         stock: faker.number.int({ max: 100 }),
+        photo: faker.image.urlLoremFlickr({ category: "cookie" }),
       });
     }
     const treats = await Promise.all(treatsToPush.map(createTreat));
@@ -218,18 +230,36 @@ async function createInitialCarts() {
         quantity: 3,
       },
     ];
-    for (let i = 0; i < 99; i++) {
+    for (let i = 0; i < 10; i++) {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {
         cartsToPush.push({
-          userId: faker.number.int({ max: 100 }),
+          userId: 777,
           productType: "treat",
           productId: faker.number.int({ max: 100 }),
           quantity: faker.number.int({ max: 20 }),
         });
       } else {
         cartsToPush.push({
-          userId: faker.number.int({ max: 100 }),
+          userId: 777,
+          productType: "merch",
+          productId: faker.number.int({ max: 26 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      }
+    }
+    for (let i = 0; i < 99; i++) {
+      let productTypeFake = faker.number.int({ max: 2 });
+      if (productTypeFake === 1) {
+        cartsToPush.push({
+          userId: faker.number.int({ max: 10 }),
+          productType: "treat",
+          productId: faker.number.int({ max: 100 }),
+          quantity: faker.number.int({ max: 20 }),
+        });
+      } else {
+        cartsToPush.push({
+          userId: faker.number.int({ max: 10 }),
           productType: "merch",
           productId: faker.number.int({ max: 26 }),
           quantity: faker.number.int({ max: 20 }),
@@ -239,7 +269,6 @@ async function createInitialCarts() {
     console.log("almost there carts");
     const carts = await Promise.all(cartsToPush.map(addToCart));
     console.log("Carts created:");
-    console.log(cartsToPush);
     console.log("Finished creating carts!");
   } catch (error) {}
 }

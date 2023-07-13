@@ -1,13 +1,20 @@
 const client = require("./client");
 
-async function createTreat({ type, price, stock }) {
+async function createTreat({
+  name,
+  description,
+  category,
+  price,
+  stock,
+  photo,
+}) {
   try {
     const response = await client.query(
       `
-        INSERT INTO treats (type, price, stock) VALUES ($1, $2, $3)
-        RETURNING type, price, stock;
+        INSERT INTO treats (name, description, category, price, stock, photo) VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING name, description, price, stock, photo;
       `,
-      [type, price, stock]
+      [name, description, category, price, stock, photo]
     );
     return response.rows[0];
   } catch (error) {}
@@ -34,8 +41,19 @@ async function getTreatById(treatId) {
   } catch (error) {}
 }
 
+async function getTreatsByCategory(category) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM treats WHERE category = $1;
+    `,
+      [category]
+    );
+    return response.rows;
+  } catch (error) {}
+}
+
 async function updateTreat({ id, fields }) {
-  console.log(fields);
   const setString = Object.keys(fields)
     .map((key, index) => `"${key}"=$${index + 1}`)
     .join(", ");
@@ -43,7 +61,6 @@ async function updateTreat({ id, fields }) {
   if (setString.length === 0) {
     return;
   }
-  console.log(setString);
   try {
     const {
       rows: [updatedInfo],
@@ -79,4 +96,5 @@ module.exports = {
   updateTreat,
   deleteTreat,
   getTreatById,
+  getTreatsByCategory,
 };

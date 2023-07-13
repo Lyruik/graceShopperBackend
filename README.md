@@ -1,14 +1,16 @@
 <img src="https://github.com/jstanley490/grace_shopper/blob/main/src/assets/logo.svg" align ="right" style="height: 64px" />
 
-# Welcome to the ```back end``` repository of "Team Munchies" E-Commerce Website!
+# Welcome to the `back end` repository of "Team Munchies" E-Commerce Website!
 
 Within this website, you will be able to register a user, login as a user, select and add treats and/or merchandise to your cart and checkout with your cart!
 
+<<<<<<< HEAD
+
 - To use the correct features within app, make sure you are logged in correctly as either admin or user.
 
-- For **light editor themes** look at `visualstudio`, `github`, or `xcode`.
+* To use the correct features within app, make sure you are logged in correctly as either `admin` or `user`.
 
-- For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
+* For **dark editor themes** look at `vscodedark`, `twilight`, `monokai`, or `terminal`.
 
 ### Problems? Please let us know!
 
@@ -198,4 +200,11 @@ You can test these api routes by using `'thunderclient'` if you'd like.
 
 ## _Video on how we built our backend_ ~~Trust me~~ :point_down: :wink:
 
+<<<<<<< HEAD
 https://www.youtube.com/watch?v=dQw4w9WgXcQ
+=======
+
+## _Click here to view our `front end` repository!_:point_down:
+
+- [`Team Munchies front end repository!`](https://github.com/jstanley490/grace_shopper/tree/main)
+  > > > > > > > 05798c1ecd2414b927666e25a2d35ba4e3f8817d

@@ -51,7 +51,6 @@ async function getUser({ username, password }) {
       `,
         [username]
       );
-      console.log("hellooo", userInfo.rows[0]);
       return userInfo.rows[0];
     }
   } catch (error) {}
@@ -113,6 +112,15 @@ async function updateAdminSeed() {
   } catch (error) {}
 }
 
+async function getAllUsers() {
+  try {
+    const response = await client.query(`
+      SELECT id, username, first_name, last_name, email, address, role_id FROM users;
+    `);
+    return response.rows;
+  } catch (error) {}
+}
+
 module.exports = {
   createUser,
   getUser,
@@ -120,4 +128,5 @@ module.exports = {
   getUserById,
   updateUser,
   updateAdminSeed,
+  getAllUsers,
 };

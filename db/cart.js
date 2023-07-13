@@ -3,7 +3,6 @@ const { getMerchById } = require("./merch");
 const { getTreatById } = require("./treats");
 
 async function addToCart({ userId, productType, productId, quantity }) {
-  console.log("bro why");
   try {
     const response = await client.query(
       `
@@ -13,7 +12,6 @@ async function addToCart({ userId, productType, productId, quantity }) {
     `,
       [userId, productType, productId, quantity]
     );
-    console.log(response.rows);
     return response.rows;
   } catch (error) {}
 }
@@ -31,11 +29,63 @@ async function viewUserCart(userId) {
   try {
     const response = await client.query(
       `
-      SELECT * FROM cart WHERE user_id = $1
+      SELECT * FROM cart WHERE user_id = $1 AND status = 'active';
         `,
       [userId]
     );
     return response.rows;
+  } catch (error) {}
+}
+
+async function viewCartById(cartId) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM cart WHERE id = $1
+    `,
+      [cartId]
+    );
+    if (!response.rows[0]) {
+      return false;
+    }
+    return response.rows[0];
+  } catch (error) {}
+}
+
+async function deleteFromCart(cartId, userId) {
+  try {
+    const response = await client.query(
+      `
+      DELETE FROM cart WHERE id = $1
+      RETURNING *;
+    `,
+      [cartId]
+    );
+    return response.rows[0];
+  } catch (error) {}
+}
+
+async function updateCartItemQuantity(quantity, cartId) {
+  try {
+    const response = await client.query(
+      `
+      UPDATE cart SET quantity = $1 WHERE id = $2
+      RETURNING *;
+    `,
+      [quantity, cartId]
+    );
+    return response.rows[0];
+  } catch (error) {}
+}
+
+async function checkoutCartClear(userId) {
+  try {
+    const respone = await client.query(
+      `
+      UPDATE cart SET status = 'purchased' WHERE user_id = $1;
+    `,
+      [userId]
+    );
   } catch (error) {}
 }
 
@@ -55,10 +105,12 @@ async function deleteFromCart(userId, productType, productId) {
 }
 */
 
-//async function
-
 module.exports = {
   addToCart,
   viewCarts,
   viewUserCart,
+  viewCartById,
+  deleteFromCart,
+  updateCartItemQuantity,
+  checkoutCartClear,
 };
