@@ -1,6 +1,6 @@
 const client = require("./client");
 const { createTreat } = require("./treats");
-const { createUser, updateAdminSeed } = require("./users");
+const { createUser, updateAdminSeed, createAdmin } = require("./users");
 const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
 const { addToCart } = require("./cart");
@@ -100,6 +100,8 @@ async function createInitialUsers() {
         lastName: "gal",
         email: "fake@glam.com",
       },
+    ];
+    const adminsToCreate = [
       {
         username: "admin",
         password: "password123",
@@ -135,6 +137,7 @@ async function createInitialUsers() {
       });
     }
     const users = await Promise.all(usersToCreate.map(createUser));
+    const admins = await Promise.all(adminsToCreate.map(createAdmin));
     updateAdminSeed();
     console.log("Users created:");
     console.log(users);
