@@ -1,6 +1,6 @@
 const client = require("./client");
 const { createTreat } = require("./treats");
-const { createUser, updateAdminSeed } = require("./users");
+const { createUser, updateAdminSeed, createAdmin } = require("./users");
 const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
 const { addToCart } = require("./cart");
@@ -47,7 +47,7 @@ async function createTables() {
             );
             CREATE TABLE merch(
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                type VARCHAR(255) NOT NULL,
                 size VARCHAR(50) NOT NULL,
                 color VARCHAR(50),
                 price MONEY NOT NULL
@@ -100,6 +100,8 @@ async function createInitialUsers() {
         lastName: "gal",
         email: "fake@glam.com",
       },
+    ];
+    const adminsToCreate = [
       {
         username: "admin",
         password: "password123",
@@ -135,6 +137,7 @@ async function createInitialUsers() {
       });
     }
     const users = await Promise.all(usersToCreate.map(createUser));
+    const admins = await Promise.all(adminsToCreate.map(createAdmin));
     updateAdminSeed();
     console.log("Users created:");
     console.log(users);
@@ -154,7 +157,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "cookie",
         price: 1,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
@@ -162,7 +165,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "brownie",
         price: 2.5,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
@@ -170,7 +173,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "cookie",
         price: 1.5,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
     ];
@@ -180,8 +183,8 @@ async function createInitialTreats() {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         category: faker.helpers.arrayElement(["cookie", "brownie"]),
-        price: faker.commerce.price({ max: 10 }),
-        stock: faker.number.int({ max: 100 }),
+        price: faker.commerce.price({ min: 1, max: 10 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookie" }),
       });
     }
@@ -236,15 +239,15 @@ async function createInitialCarts() {
         cartsToPush.push({
           userId: 777,
           productType: "treat",
-          productId: faker.number.int({ max: 100 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 100 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       } else {
         cartsToPush.push({
           userId: 777,
           productType: "merch",
-          productId: faker.number.int({ max: 26 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 26 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       }
     }
@@ -252,17 +255,17 @@ async function createInitialCarts() {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {
         cartsToPush.push({
-          userId: faker.number.int({ max: 10 }),
+          userId: faker.number.int({ min: 1, max: 10 }),
           productType: "treat",
-          productId: faker.number.int({ max: 100 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 100 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       } else {
         cartsToPush.push({
-          userId: faker.number.int({ max: 10 }),
+          userId: faker.number.int({ min: 1, max: 10 }),
           productType: "merch",
-          productId: faker.number.int({ max: 26 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 26 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       }
     }
@@ -279,198 +282,198 @@ async function createInitialMerch() {
     const merchToCreate = [
       {
         id: 1,
-        name: "shirt",
-        size: "medium",
-        color: "light gray",
+        type: "Shirt",
+        size: "Medium",
+        color: "Light Gray",
         price: 20,
       },
       {
         id: 2,
-        name: "shirt",
-        size: "large",
-        color: "light gray",
+        type: "Shirt",
+        size: "Large",
+        color: "Light Gray",
         price: 20,
       },
       {
         id: 3,
-        name: "shirt",
-        size: "xl",
-        color: "light gray",
+        type: "Shirt",
+        size: "XL",
+        color: "Light Gray",
         price: 20,
       },
       {
         id: 4,
-        name: "shirt",
+        type: "Shirt",
         size: "2xl",
-        color: "light gray",
+        color: "Light Gray",
         price: 20,
       },
       {
         id: 5,
-        name: "shirt",
-        size: "medium",
-        color: "navy blue",
+        type: "Shirt",
+        size: "Medium",
+        color: "Navy Blue",
         price: 20,
       },
       {
         id: 6,
-        name: "shirt",
-        size: "large",
-        color: "navy blue",
+        type: "Shirt",
+        size: "Large",
+        color: "Navy Blue",
         price: 20,
       },
       {
         id: 7,
-        name: "shirt",
-        size: "xl",
-        color: "navy blue",
+        type: "Shirt",
+        size: "XL",
+        color: "Navy Blue",
         price: 20,
       },
       {
         id: 8,
-        name: "shirt",
+        type: "Shirt",
         size: "2xl",
-        color: "navy blue",
+        color: "Navy Blue",
         price: 20,
       },
       {
         id: 9,
-        name: "shirt",
-        size: "medium",
-        color: "red",
+        type: "Shirt",
+        size: "Medium",
+        color: "Red",
         price: 20,
       },
       {
         id: 10,
-        name: "shirt",
-        size: "large",
-        color: "red",
+        type: "Shirt",
+        size: "Large",
+        color: "Red",
         price: 20,
       },
       {
         id: 11,
-        name: "shirt",
-        size: "xl",
-        color: "red",
+        type: "Shirt",
+        size: "XL",
+        color: "Red",
         price: 20,
       },
       {
         id: 12,
-        name: "shirt",
+        type: "Shirt",
         size: "2xl",
-        color: "red",
+        color: "Red",
         price: 20,
       },
       {
         id: 13,
-        name: "shirt",
-        size: "medium",
-        color: "black",
+        type: "Shirt",
+        size: "Medium",
+        color: "Black",
         price: 20,
       },
       {
         id: 14,
-        name: "shirt",
-        size: "large",
-        color: "black",
+        type: "Shirt",
+        size: "Large",
+        color: "Black",
         price: 20,
       },
       {
         id: 15,
-        name: "shirt",
-        size: "xl",
-        color: "black",
+        type: "Shirt",
+        size: "XL",
+        color: "Black",
         price: 20,
       },
       {
         id: 16,
-        name: "shirt",
+        type: "Shirt",
         size: "2xl",
-        color: "black",
+        color: "Black",
         price: 20,
       },
       {
         id: 17,
-        name: "baseball cap",
-        size: "large",
-        color: "english oak",
+        type: "Baseball Cap",
+        size: "Large",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 18,
-        name: "baseball cap",
-        size: "xl",
-        color: "english oak",
+        type: "Baseball Cap",
+        size: "XL",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 19,
-        name: "baseball cap",
-        size: "large",
-        color: "goldenrod",
+        type: "Baseball Cap",
+        size: "Large",
+        color: "Goldenrod",
         price: 25,
       },
       {
         id: 20,
-        name: "baseball cap",
-        size: "xl",
-        color: "goldenrod",
+        type: "Baseball Cap",
+        size: "XL",
+        color: "Goldenrod",
         price: 25,
       },
       {
         id: 21,
-        name: "bucket hat",
-        size: "large",
-        color: "english oak",
+        type: "Bucket Hat",
+        size: "Large",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 22,
-        name: "bucket hat",
-        size: "xl",
-        color: "english oak",
+        type: "Bucket Hat",
+        size: "XL",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 23,
-        name: "bucket hat",
-        size: "large",
-        color: "goldenrod",
+        type: "Bucket Hat",
+        size: "Large",
+        color: "Goldenrod",
         price: 25,
       },
       {
         id: 24,
-        name: "bucket hat",
-        size: "xl",
-        color: "goldenrod",
+        type: "Bucket Hat",
+        size: "XL",
+        color: "Goldenrod",
         price: 25,
       },
       {
         id: 25,
-        name: "beanie",
-        size: "large",
-        color: "english oak",
+        type: "Beanie",
+        size: "Large",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 26,
-        name: "beanie",
-        size: "xl",
-        color: "english oak",
+        type: "Beanie",
+        size: "XL",
+        color: "English Oak",
         price: 25,
       },
       {
         id: 27,
-        name: "beanie",
-        size: "large",
-        color: "goldenrod",
+        type: "Beanie",
+        size: "Large",
+        color: "Goldenrod",
         price: 25,
       },
       {
         id: 28,
-        name: "beanie",
-        size: "xl",
-        color: "goldenrod",
+        type: "Beanie",
+        size: "XL",
+        color: "Goldenrod",
         price: 25,
       },
     ];
