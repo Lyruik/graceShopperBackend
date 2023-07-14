@@ -25,6 +25,7 @@ cartRouter.get("/", async (req, res, next) => {
           const newRow = await getTreatById(row.product_id);
           newRow.quantity = row.quantity;
           newRow.id = row.id;
+          newRow.product_id = row.product_id;
           userCart.push(newRow);
           if (userCart.length === response.length && newRow !== null) {
             res.send(userCart);
@@ -33,6 +34,7 @@ cartRouter.get("/", async (req, res, next) => {
           const newRow = await getMerchById(row.product_id);
           newRow.quantity = row.quantity;
           newRow.id = row.id;
+          newRow.product_id = row.product_id;
           userCart.push(newRow);
           if (userCart.length === response.length) {
             res.send(userCart);
