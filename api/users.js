@@ -16,6 +16,12 @@ const usersRouter = express.Router();
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
   try {
+    if (req.body.role_id) {
+      res.send({
+        Error: "Invalid request",
+        Message: "You do not have permission to create admins",
+      });
+    }
     if (password.length < 8) {
       res.send({
         error: "Password error",
@@ -34,12 +40,7 @@ usersRouter.post("/register", async (req, res, next) => {
           expiresIn: "1w",
         }
       );
-      if (!response.user) {
-        res.send({
-          Error: "Invalid request",
-          Message: "You do not have permission to create admins",
-        });
-      }
+
       res.send({
         message: "Thank you for registering",
         token: token,
