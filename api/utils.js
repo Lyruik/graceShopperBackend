@@ -2,6 +2,7 @@ const { viewCartById } = require("../db/cart");
 
 function requireAdmin(req, res, next) {
   if (req.user.role_id !== 1) {
+    console.log("hi");
     res.send({
       message: "You must be an admin in to perform this action",
       error: "roleError",

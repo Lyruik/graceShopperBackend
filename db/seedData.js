@@ -1,6 +1,6 @@
 const client = require("./client");
 const { createTreat } = require("./treats");
-const { createUser, updateAdminSeed } = require("./users");
+const { createUser, updateAdminSeed, createAdmin } = require("./users");
 const { createMerch } = require("./merch");
 const { faker } = require("@faker-js/faker");
 const { addToCart } = require("./cart");
@@ -100,6 +100,8 @@ async function createInitialUsers() {
         lastName: "gal",
         email: "fake@glam.com",
       },
+    ];
+    const adminsToCreate = [
       {
         username: "admin",
         password: "password123",
@@ -135,6 +137,7 @@ async function createInitialUsers() {
       });
     }
     const users = await Promise.all(usersToCreate.map(createUser));
+    const admins = await Promise.all(adminsToCreate.map(createAdmin));
     updateAdminSeed();
     console.log("Users created:");
     console.log(users);
@@ -154,7 +157,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "cookie",
         price: 1,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "food" }),
       },
       {
@@ -162,7 +165,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "brownie",
         price: 2.5,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
       {
@@ -170,7 +173,7 @@ async function createInitialTreats() {
         description: faker.commerce.productDescription(),
         category: "cookie",
         price: 1.5,
-        stock: faker.number.int({ max: 100 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookies" }),
       },
     ];
@@ -180,8 +183,8 @@ async function createInitialTreats() {
         name: faker.commerce.productName(),
         description: faker.commerce.productDescription(),
         category: faker.helpers.arrayElement(["cookie", "brownie"]),
-        price: faker.commerce.price({ max: 10 }),
-        stock: faker.number.int({ max: 100 }),
+        price: faker.commerce.price({ min: 1, max: 10 }),
+        stock: faker.number.int({ min: 1, max: 100 }),
         photo: faker.image.urlLoremFlickr({ category: "cookie" }),
       });
     }
@@ -236,15 +239,15 @@ async function createInitialCarts() {
         cartsToPush.push({
           userId: 777,
           productType: "treat",
-          productId: faker.number.int({ max: 100 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 100 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       } else {
         cartsToPush.push({
           userId: 777,
           productType: "merch",
-          productId: faker.number.int({ max: 26 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 26 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       }
     }
@@ -252,17 +255,17 @@ async function createInitialCarts() {
       let productTypeFake = faker.number.int({ max: 2 });
       if (productTypeFake === 1) {
         cartsToPush.push({
-          userId: faker.number.int({ max: 10 }),
+          userId: faker.number.int({ min: 1, max: 10 }),
           productType: "treat",
-          productId: faker.number.int({ max: 100 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 100 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       } else {
         cartsToPush.push({
-          userId: faker.number.int({ max: 10 }),
+          userId: faker.number.int({ min: 1, max: 10 }),
           productType: "merch",
-          productId: faker.number.int({ max: 26 }),
-          quantity: faker.number.int({ max: 20 }),
+          productId: faker.number.int({ min: 1, max: 26 }),
+          quantity: faker.number.int({ min: 1, max: 20 }),
         });
       }
     }
