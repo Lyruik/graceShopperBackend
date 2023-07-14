@@ -47,7 +47,7 @@ cartRouter.get("/", async (req, res, next) => {
   }
 });
 
-cartRouter.post("/", async (req, res, next) => {
+cartRouter.post("/", async (req, res, next) => {console.log("hello");
   const itemInfo = {
     userId: req.user.id,
     productType: req.body.productType,
@@ -55,6 +55,7 @@ cartRouter.post("/", async (req, res, next) => {
     quantity: req.body.quantity,
   };
   try {
+    
     const response = await addToCart(itemInfo);
     res.send(response);
   } catch (error) {}
