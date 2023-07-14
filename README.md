@@ -37,30 +37,30 @@ This endpoint is the most open. It will return all merch currently within our da
     "merch": [
     {
        "id": 1,
-       "type": "shirt",
-       "size": "medium",
-       "color": "light gray",
+       "type": "Shirt",
+       "size": "Medium",
+       "color": "Light Gray",
        "price": 20
     },
     {
        "id": 2,
-       "type": "shirt",
-       "size": "large",
-       "color": "light gray",
+       "type": "Shirt",
+       "size": "Large",
+       "color": "Light Gray",
        "price": 20
     },
     {
        "id": 3,
-       "type": "shirt",
-       "size": "xl",
-       "color": "light gray",
+       "type": "Shirt",
+       "size": "XL",
+       "color": "Light Gray",
        "price": 20
     },
     {
        "id": 4,
-       "type": "shirt",
+       "type": "Shirt",
        "size": "2xl",
-       "color": "light gray",
+       "color": "Light Gray",
        "price": 20
     }
   ]
@@ -74,9 +74,9 @@ This is the route for creating new merch. The admin will have to supply a JSON B
 ```
 {
         "id": 18,
-        "type": "baseball cap",
-        "size": "xl",
-        "color": "english oak",
+        "type": "Baseball Cap",
+        "size": "XL",
+        "color": "English Oak",
         "price": 25,
 }
 ```
@@ -88,9 +88,9 @@ This is the route for deleting a piece or pieces of merch. The user has to suppl
 ```
 {
         "id": 26,
-        "type": "beanie",
-        "size": "xl",
-        "color": "english oak",
+        "type": "Beanie",
+        "size": "XL",
+        "color": "English Oak",
         "price": 25,
 }
 ```
@@ -104,19 +104,19 @@ This endpoint is the most open. It will return all treats currently within our d
     "treats": [
     {
         "id": 1
-       "type": "chocolate chip cookie",
+       "type": "Chocolate Chip Cookie",
        "price": 1.00,
        "stock": 25
     },
     {
         "id": 2
-       "type": "fudge brownie",
+       "type": "Fudge Brownie",
        "price": 2.50,
        "stock": 52
     },
     {
         "id": 3
-       "type": "choclate pretzel",
+       "type": "Choclate Pretzel",
        "price": 1.50,
        "stock": 45
     },
