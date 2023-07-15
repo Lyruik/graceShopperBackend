@@ -80,7 +80,13 @@ async function updateCartItemQuantity(quantity, cartId) {
     `,
       [quantity, cartId]
     );
-    return response.rows[0];
+    const cart = await client.query(
+      `
+      SELECT * FROM cart WHERE user_id = $1
+    `,
+      [response.rows[0].user_id]
+    );
+    return cart.rows;
   } catch (error) {}
 }
 
