@@ -7,12 +7,18 @@ async function addToCart({ userId, productType, productId, quantity }) {
     const response = await client.query(
       `
         INSERT INTO cart (user_id, product_type, product_id, quantity) 
-        VALUES ($1, $2, $3, $4)
-        RETURNING *;
+        VALUES ($1, $2, $3, $4);
     `,
       [userId, productType, productId, quantity]
     );
-    return response.rows;
+    const response2 = await client.query(
+      `
+      SELECT * FROM cart WHERE user_id = $1;
+    `,
+      [userId]
+    );
+    console.log("ehlp");
+    return response2.rows;
   } catch (error) {}
 }
 

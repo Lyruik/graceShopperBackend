@@ -19,6 +19,7 @@ cartRouter.get("/", async (req, res, next) => {
   try {
     let userCart = [];
     const response = await viewUserCart(req.user.id);
+    console.log(response);
     if (response.length >= 1) {
       response.map(async (row) => {
         if (row.product_type === "treat") {
@@ -48,6 +49,7 @@ cartRouter.get("/", async (req, res, next) => {
 });
 
 cartRouter.post("/", async (req, res, next) => {
+  console.log("hello");
   const itemInfo = {
     userId: req.user.id,
     productType: req.body.productType,
