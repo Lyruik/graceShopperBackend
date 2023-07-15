@@ -37,16 +37,17 @@ async function createAdmin({
   firstName,
   lastName,
   email,
-  roleId,
+  role_id,
 }) {
   try {
+    console.log(username, password, firstName, lastName, email, role_id);
     const hash = await bcrypt.hash(password, 10);
     const createduser = await client.query(
       `
       INSERT INTO users (username, password, first_name, last_name, email, role_id) VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id, username;
     `,
-      [username, hash, firstName, lastName, email, roleId]
+      [username, hash, firstName, lastName, email, role_id]
     );
     return createduser.rows[0];
   } catch (error) {}
