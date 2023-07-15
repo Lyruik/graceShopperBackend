@@ -86,6 +86,9 @@ async function deleteTreat(treatId) {
         `,
       [treatId]
     );
+    const cartRemoval = await client.query(`
+      DELETE FROM cart WHERE product_id = $1 AND product_type = 'treat'
+    `);
     return response.rows[0];
   } catch (error) {}
 }
