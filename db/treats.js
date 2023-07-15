@@ -8,6 +8,10 @@ async function createTreat({
   stock,
   photo,
 }) {
+  if (!photo) {
+    photo =
+      "https://loremflickr.com/cache/resized/65535_52162775168_7b6e2bbc9e_z_640_480_nofilter.jpg";
+  }
   try {
     const response = await client.query(
       `
@@ -16,6 +20,7 @@ async function createTreat({
       `,
       [name, description, category, price, stock, photo]
     );
+    console.log(response.row);
     return response.rows[0];
   } catch (error) {}
 }

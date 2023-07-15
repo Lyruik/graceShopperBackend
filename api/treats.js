@@ -6,6 +6,7 @@ const {
   updateTreat,
   deleteTreat,
   getTreatsByCategory,
+  createTreat,
 } = require("../db/treats");
 const { requireAdmin, requireIdentity } = require("./utils");
 const treatsRouter = express.Router();
@@ -32,6 +33,14 @@ treatsRouter.patch(
     } catch (error) {}
   }
 );
+
+treatsRouter.post("/", requireAdmin, async (req, res, next) => {
+  try {
+    console.log("adminmn");
+    const response = await createTreat(req.body);
+    res.send(response);
+  } catch (error) {}
+});
 
 treatsRouter.get("/:category", async (req, res, next) => {
   const { category } = req.params;
