@@ -16,6 +16,7 @@ treatsRouter.get("/", async (req, res, next) => {
     res.send(response);
   } catch (error) {}
 });
+
 treatsRouter.patch(
   "/:treatId",
   requireIdentity,

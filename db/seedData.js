@@ -108,7 +108,7 @@ async function createInitialUsers() {
         firstName: "adddy",
         lastName: "miinnn",
         email: "fake@admingg.com",
-        roleId: 1,
+        role_id: 1,
       },
       {
         username: "isafernandez",
@@ -116,7 +116,7 @@ async function createInitialUsers() {
         firstName: "Isaac",
         lastName: "Fernandez",
         email: "fake@isaac.com",
-        roleId: 1,
+        role_id: 1,
       },
       {
         username: "jeremy-s",
@@ -124,7 +124,7 @@ async function createInitialUsers() {
         firstName: "Jeremy",
         lastName: "Stanley",
         email: "fake@jeremy.com",
-        roleId: 1,
+        role_id: 1,
       },
     ];
     for (let i = 7; i < 99; i++) {
