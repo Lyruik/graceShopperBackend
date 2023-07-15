@@ -19,9 +19,9 @@ cartRouter.get("/", async (req, res, next) => {
   try {
     let userCart = [];
     const response = await viewUserCart(req.user.id);
+    console.log(response);
     if (response.length >= 1) {
       response.map(async (row) => {
-        console.log(row);
         if (row.product_type === "treat") {
           const newRow = await getTreatById(row.product_id);
           newRow.quantity = row.quantity;
