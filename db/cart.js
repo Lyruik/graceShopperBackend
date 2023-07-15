@@ -58,16 +58,23 @@ async function viewCartById(cartId) {
   } catch (error) {}
 }
 
-async function deleteFromCart(cartId, userId) {
+async function deleteFromCart(cartId) {
   try {
     const response = await client.query(
       `
       DELETE FROM cart WHERE id = $1
-      RETURNING *;
+      RETURNING user_id;
     `,
       [cartId]
     );
-    return response.rows[0];
+    const userId = response.rows[0];
+    const response2 = await client.query(
+      `
+      SELECT * FROM cart WHERE user_id = $1
+    `,
+      [userId]
+    );
+    return response2.rows;
   } catch (error) {}
 }
 
@@ -80,7 +87,13 @@ async function updateCartItemQuantity(quantity, cartId) {
     `,
       [quantity, cartId]
     );
-    return response.rows[0];
+    const cart = await client.query(
+      `
+      SELECT * FROM cart WHERE user_id = $1
+    `,
+      [response.rows[0].user_id]
+    );
+    return cart.rows;
   } catch (error) {}
 }
 
