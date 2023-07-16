@@ -16,12 +16,6 @@ const usersRouter = express.Router();
 usersRouter.post("/register", async (req, res, next) => {
   const { username, password } = req.body;
   try {
-    if (req.body.role_id) {
-      res.send({
-        Error: "Invalid request",
-        Message: "You do not have permission to create admins",
-      });
-    }
     if (password.length < 8) {
       res.send({
         error: "Password error",
@@ -30,25 +24,30 @@ usersRouter.post("/register", async (req, res, next) => {
       });
     } else {
       const response = await createUser(req.body);
-      const token = jwt.sign(
-        {
-          id: response.id,
-          username,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "1w",
+      if (response) {
+        if (response.id) {
+          const token = jwt.sign(
+            {
+              id: response.id,
+              username,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "1w",
+            }
+          );
+          res.send({
+            message: "Thank you for registering",
+            token: token,
+            user: {
+              id: response.id,
+              username: response.username,
+            },
+          });
+        } else if (response.error) {
+          res.send(response);
         }
-      );
-
-      res.send({
-        message: "Thank you for registering",
-        token: token,
-        user: {
-          id: response.id,
-          username: response.username,
-        },
-      });
+      }
     }
   } catch (error) {
     next(error);
@@ -84,8 +83,6 @@ usersRouter.post("/login", async (req, res, next) => {
 usersRouter.post("/createadmin", requireAdmin, async (req, res, next) => {
   try {
     const response = await createAdmin(req.body);
-    console.log(req.body);
-    console.log(response);
     res.send(response);
   } catch (error) {}
 });
