@@ -30,25 +30,30 @@ usersRouter.post("/register", async (req, res, next) => {
       });
     } else {
       const response = await createUser(req.body);
-      const token = jwt.sign(
-        {
-          id: response.id,
-          username,
-        },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "1w",
+      if (response) {
+        if (response.id) {
+          const token = jwt.sign(
+            {
+              id: response.id,
+              username,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "1w",
+            }
+          );
+          res.send({
+            message: "Thank you for registering",
+            token: token,
+            user: {
+              id: response.id,
+              username: response.username,
+            },
+          });
+        } else if (response.error) {
+          res.send(response);
         }
-      );
-
-      res.send({
-        message: "Thank you for registering",
-        token: token,
-        user: {
-          id: response.id,
-          username: response.username,
-        },
-      });
+      }
     }
   } catch (error) {
     next(error);
