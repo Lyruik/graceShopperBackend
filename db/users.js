@@ -4,29 +4,64 @@ const bcrypt = require("bcrypt");
 // database functions
 
 // user functions
-async function createUser({
-  username,
-  password,
-  firstName,
-  lastName,
-  email,
-  roleId,
-}) {
+async function createUser({ username, password, firstName, lastName, email }) {
   try {
-    const hash = await bcrypt.hash(password, 10);
-    if (!roleId) {
-      const createduser = await client.query(
-        `
+    const usernameCheck = await checkUsernameAvail(username);
+    if (!usernameCheck) {
+      const emailCheck = await checkEmailAvail(email);
+      if (!emailCheck) {
+        const hash = await bcrypt.hash(password, 10);
+        const createduser = await client.query(
+          `
         INSERT INTO users (username, password, first_name, last_name, email) VALUES ($1, $2, $3, $4, $5)
         RETURNING id, username;
       `,
-        [username, hash, firstName, lastName, email]
-      );
-      return createduser.rows[0];
+          [username, hash, firstName, lastName, email]
+        );
+        if (!createduser) {
+        }
+        return createduser.rows[0];
+      } else {
+        return {
+          error: "That email is already being used",
+        };
+      }
     } else {
       return {
-        Error: "Invalid request",
+        error: "That username is already being used",
       };
+    }
+  } catch (error) {}
+}
+
+async function checkUsernameAvail(username) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM users WHERE username = $1;
+    `,
+      [username]
+    );
+    if (response.rows[0] === [] || response.rows[0] === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  } catch (error) {}
+}
+
+async function checkEmailAvail(email) {
+  try {
+    const response = await client.query(
+      `
+      SELECT * FROM users WHERE email = $1;
+    `,
+      [email]
+    );
+    if (response.rows[0] === [] || response.rows[0] === undefined) {
+      return false;
+    } else {
+      return true;
     }
   } catch (error) {}
 }
@@ -37,7 +72,7 @@ async function createAdmin({
   firstName,
   lastName,
   email,
-  roleId,
+  role_id,
 }) {
   try {
     const hash = await bcrypt.hash(password, 10);
@@ -46,7 +81,7 @@ async function createAdmin({
       INSERT INTO users (username, password, first_name, last_name, email, role_id) VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id, username;
     `,
-      [username, hash, firstName, lastName, email, roleId]
+      [username, hash, firstName, lastName, email, role_id]
     );
     return createduser.rows[0];
   } catch (error) {}
